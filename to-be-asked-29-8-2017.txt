@@ -1,3 +1,7 @@
 - can repository be public on github? which license (mit?)? 
 - may student record audio of the happening?
 - language of the work (english/finnish)?
+- will we publish app and when and for which platforms?
+- who would maintain the backend after the course?
+- is our draft picture fine?
+- 13.10. klo 12:00 @ 5006 meeting?
