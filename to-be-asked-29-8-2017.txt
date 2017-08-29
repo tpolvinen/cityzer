@@ -1,0 +1,3 @@
+- can repository be public on github? which license (mit?)? 
+- may student record audio of the happening?
+- language of the work (english/finnish)?
