@@ -1,7 +1,58 @@
+Items discussed
+
+pegasor and vaisala hardware producers.
+
+Emtele, sasken and hsy other services. weather radar knows where it rains now and where it will rain. cityzer has three coming hours of weather coming up. Open data from fmi, regarding radar? Air quality prediction is also part of the project. Many projects find money from outside organizations. FMI has precise location weather services, but citizer is free. Insurance companies, farmers and aviation. Sea transport uses weather info extensively. 
+
+Radar info in various formats available for commercial usages. Citizer has specific scope which is about land targets in the mertopolitan area of capital. Many companies take into weather info to their software for planning. A lot of weather data is available today and it should be integrated into systems. Air quality forecasting. fmi-enfuser predicts air quality.
+
+The factors for air quality is sources of pollution, the distribution and wind, the weather profile of heat if inversion. Summer sunny days can get mixed to high obstacles. Rain and topography have to do with the quality of air. 
+
+Haaga-Helia predicting the need of markets, Brazil etc. Finnish dust from streets is a problem. Real Estate's which are based on IOT can use weather info for real estate. How to make money with weather info? Rain model may not be improved in cityzer project, but pollution model can be improved.
+
+HSY demo service. 
+
+cityzerdb.fmi.fi/test/map.html
+
+Kaustinen hardware, Tampere software. Sasken. HSY sensors and FMI own sensors from Vaisala. 
+
+netcdf located on top of a map. 
+
+Model cannot know about open fire and police stopping traffic. HSY wants to show air quality forecasts. Data comes from rain forecast and pollution forecast. Cityzerdb stores. 
+
+Credentials user and pass. Rest-Api at /api/getLatest at cityzerdb gives weather data. International project. Weather info in China is not public data. Short distance weather info can be a factor in optimizing terror attack. You get a token for authentication - session key. 
+
+token for accessing. Time resolution makes difference. 
+
+Weather geodiff, somebody makes conversions. Time, how long, where and rain amount. How sure warning? It is very difficult. Could integrate existing data with other services. Cannot find probabilities. netcdf has no probabilities. Time function and rain strength function. Leaflet kirjasto. NETCDF as a format without probabilities, new format version 2 and 3. 
+
+Sasken questions about software, not content. Sasken will answer questions. Credit is available. 
+
+NOTIFIKAATIOITA EI TULE NYKYISIIN SOVELLUKSIIN. Kertymä kerrottuna ajalla. 
+
+- Do we need a map?
+
+AWS service. 
+
 - can repository be public on github? which license (mit?)? 
+
+can be public on github. 
+
 - may student record audio of the happening?
+
 - language of the work (english/finnish)?
+
+English.
+
 - will we publish app and when and for which platforms?
+
+Sadekertymä kiinnostaa. Kaivojen kapasiteetti on rajallinen. 
+
 - who would maintain the backend after the course?
+
+
 - is our draft picture fine?
+
+
+
 - 13.10. klo 12:00 @ 5006 meeting?
