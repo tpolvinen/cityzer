@@ -50,6 +50,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucar</groupId>
+			<artifactId>netcdf</artifactId>
+			<version>4.3.22</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -61,5 +73,12 @@
 		</plugins>
 	</build>
 
+	<repositories>
+		<repository>
+			<id>unidata-releases</id>
+			<name>Unidata Releases</name>
+			<url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/</url>
+		</repository>
+	</repositories>
 
 </project>
