@@ -1,4 +1,5 @@
-#Server documentation
+# Server documentation
+
 
 Digital Ocean IP: 128.199.61.201
 
@@ -7,12 +8,14 @@ Paths:
       home/joel/print/src/com/company/
             Communicator.java
             Main.java
+      Jos tekee muutoksia java-koodiin pitää aina suorittaa "javac *.java"-komento
+      Muista oikea path.
 
-      var/www/html/
+      var/www/html/ - location of data files.
 
-      nano Main.java
+      nano <filename>.java - opens file in nano
 
-home/joel/fetch-data.sh
+## home/joel/fetch-data.sh
 
       #!/bin/bash
       cp /var/www/html/output.txt /var/www/html/output-old.txt
