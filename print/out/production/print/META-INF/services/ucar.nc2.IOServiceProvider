@@ -1,0 +1,6 @@
+ucar.nc2.iosp.bufr.BufrIosp2
+ ucar.nc2.nc2.grib.grib1.Grib1Iosp
+ ucar.nc2.nc2.grib.grib2.Grib2Iosp
+ucar.nc2.iosp.gempak.GempakSoundingIOSP
+ucar.nc2.iosp.gempak.GempakSurfaceIOSP
+ucar.nc2.iosp.mcidas.AreaServiceProvider

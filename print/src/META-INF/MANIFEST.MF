@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Implementation-Title: CDM core library
+Implementation-Version: 4.6.10
+Built-By: cwardgar
+Implementation-Vendor-Id: edu.ucar
+Implementation-URL: https://www.unidata.ucar.edu/software/thredds/curr
+ ent/netcdf-java/documentation.htm
+Created-By: Gradle 3.4.1
+Build-Jdk: 1.8.0_121
+Built-On: 2017-04-19T16:32:55-0600
+Implementation-Vendor: UCAR/Unidata
+Main-Class: ucar.nc2.NCdumpW
+

@@ -1,0 +1,29 @@
+set "PATH=%PATH%;C:\Program Files\Java\jdk1.8.0_144\bin"
+javac com\company\*.java
+
+java com/company/Main > outputCorrected.txt
+
+"/home/a1500908/print/src/data.bin"
++
+
+
+---
+Run command, aka "fetch-data.sh"
+---
+
+#!/bin/bash
+cp /var/www/output.txt /var/www/output-old.txt
+cd /home/a1500908/print/src
+/usr/bin/java com/company/Main > /var/www/output.txt
+FILESIZE=$(stat -c%s "/var/www/output.txt")
+if [ $FILESIZE -lt 100000 ]; then
+        cp /var/www/output-old.txt /var/www/output.txt
+        echo "File retrieval failed!"
+fi
+echo "Size of file = $FILESIZE"
+
+---
+Crontab for "fetch-data.sh"
+---
+
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/a1500908/bin/fetch-data.sh >/dev/null 2>&1

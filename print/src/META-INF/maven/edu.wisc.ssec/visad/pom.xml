@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.wisc.ssec</groupId>
+  <artifactId>visad</artifactId>
+  <packaging>jar</packaging>
+  <version>2.0-20130124</version>
+  <name>visad</name>
+  <description>VisAD is a Java component library for interactive and collaborative visualization and analysis of numerical data.</description>
+  <url>http://www.ssec.wisc.edu/~billh/visad.html</url>
+  <distributionManagement>
+    <repository>
+      <id>unidata-releases</id>
+      <name>UNIDATA Releases</name>
+      <url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>unidata-snapshots</id>
+      <name>UNIDATA Snapshots</name>
+      <url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <repositories>
+    <repository>
+      <id>thredds</id>
+      <name>THREDDS</name>
+      <url>http://artifacts.unidata.ucar.edu:8081/content/repositories/thredds/</url>
+    </repository>
+  </repositories>
+  <licenses>
+    <license>
+      <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+      <url>http://www.gnu.org/licenses/lgpl.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>bh</id>
+      <name>Bill Hibbard</name>
+      <email>bh@ssec.wisc.edu</email>
+      <organization>Space Science and Engineering Center, University of Wisconsin-Madison</organization>
+      <organizationUrl>http://www.ssec.wisc.edu/</organizationUrl>
+      <roles>
+        <role>owner</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
+  <dependencies>
+    <!-- You may get compilation errors related to not finding Java 3D. In this case, you will have to install (http://download.java.net/media/java3d/builds/release/1.5.1/README-download.html) Java 3D into your JRE.
+    -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
