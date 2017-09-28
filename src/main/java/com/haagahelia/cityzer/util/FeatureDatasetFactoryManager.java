@@ -8,8 +8,8 @@ import com.haagahelia.cityzer.util.NetCdfHandler;
 import ucar.ma2.InvalidRangeException;
 import ucar.nc2.dt.*;
 
-public class MainClass {
-    public static void main(String args[]) throws IOException, InvalidRangeException {
+public class FeatureDatasetFactoryManager {
+    public Weather makeDataSet( int time, double lat, double lon) throws IOException, InvalidRangeException {
 
         NetCdfHandler handler = new NetCdfHandler();
 
@@ -17,9 +17,6 @@ public class MainClass {
 
         String location = "/m:/cityzer/_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-09-11T00_00_00Z.nc";
 
-        int time = 0;
-        double lat = 60.201953770612505;
-        double lon = 24.934014050581936;
 
         String datatype = "air_temperature_4";
         double val = handler.getaData(time, location, lat, lon, datatype) ;
@@ -54,22 +51,42 @@ public class MainClass {
         System.out.println();
         System.out.println();
         System.out.println(weather.toString());;
+
+
+        return weather;
     }
 
 
 
-private static double roundValue(double val){
+private  double roundValue(double val){
 
 
     NumberFormat nf = NumberFormat.getInstance();
     nf.setMinimumFractionDigits(12);
 
-    String roundedValStr=nf.format(val);
+    String roundedValStr=null;
+    double roundedVal=0;
+
+    if(val<0){
 
 
 
+      val=val*-1;
+        roundedValStr=nf.format(val);
 
-    double roundedVal=Double.parseDouble(roundedValStr.replaceFirst(",", "."));
+    roundedVal=Double.parseDouble(roundedValStr.replaceFirst(",", "."));
+
+    roundedVal=0-roundedVal;
+
+    }
+
+    else{
+        roundedValStr=nf.format(val);
+
+        roundedVal=Double.parseDouble(roundedValStr.replaceFirst(",", "."));
+
+    }
+
 
 
     return roundedVal;}
