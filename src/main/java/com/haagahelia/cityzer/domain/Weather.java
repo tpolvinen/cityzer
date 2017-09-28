@@ -1,47 +1,62 @@
 package com.haagahelia.cityzer.domain;
 
 public class Weather {
-    private double tempature;
-    private double rainAmounth;
-    private double cloud_area_fraction;
-    private double eastward_wind;
-    private double northward_wind;
+    private double air_temperature_4;
+    private double precipitation_amount_353;
+    private double cloud_area_fraction_79;
+    private double eastward_wind_23;
+    private double northward_wind_24;
 
-    public double getTempature() {
-        return tempature;
+    public double getAir_temperature_4() {
+        return air_temperature_4;
     }
-    public void setTempature(double tempature) {
-        this.tempature = tempature;
+
+    public double getPrecipitation_amount_353() {
+        return precipitation_amount_353;
     }
-    public double getRainAmounth() {
-        return rainAmounth;
+
+    public double getCloud_area_fraction_79() {
+        return cloud_area_fraction_79;
     }
-    public void setRainAmounth(double rainAmounth) {
-        this.rainAmounth = rainAmounth;
+
+    public double getEastward_wind_23() {
+        return eastward_wind_23;
     }
-    public double getCloud_area_fraction() {
-        return cloud_area_fraction;
+
+    public double getNorthward_wind_24() {
+        return northward_wind_24;
     }
-    public void setCloud_area_fraction(double cloud_area_fraction) {
-        this.cloud_area_fraction = cloud_area_fraction;
+
+
+    public void setAir_temperature_4(double air_temperature_4) {
+        this.air_temperature_4 = air_temperature_4;
     }
-    public double getEastward_wind() {
-        return eastward_wind;
+
+    public void setPrecipitation_amount_353(double precipitation_amount_353) {
+        this.precipitation_amount_353 = precipitation_amount_353;
     }
-    public void setEastward_wind(double eastward_wind) {
-        this.eastward_wind = eastward_wind;
+
+    public void setCloud_area_fraction_79(double cloud_area_fraction_79) {
+        this.cloud_area_fraction_79 = cloud_area_fraction_79;
     }
-    public double getNorthward_wind() {
-        return northward_wind;
+
+    public void setEastward_wind_23(double eastward_wind_23) {
+        this.eastward_wind_23 = eastward_wind_23;
     }
-    public void setNorthward_wind(double northward_wind) {
-        this.northward_wind = northward_wind;
+
+    public void setNorthward_wind_24(double northward_wind_24) {
+        this.northward_wind_24 = northward_wind_24;
     }
+
     @Override
     public String toString() {
-        return "Weather [tempature=" + tempature + ", rainAmounth=" + rainAmounth
-                + ", cloud_area_fraction=" + cloud_area_fraction
-                + ", eastward_wind=" + eastward_wind + ", northward_wind="
-                + northward_wind + "]";
+        return "Weather{" +
+                "air_temperature_4=" + air_temperature_4 +
+                ", precipitation_amount_353=" + precipitation_amount_353 +
+                ", cloud_area_fraction_79=" + cloud_area_fraction_79 +
+                ", eastward_wind_23=" + eastward_wind_23 +
+                ", northward_wind_24=" + northward_wind_24 +
+                '}';
     }
 }
+

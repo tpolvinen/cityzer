@@ -24,32 +24,32 @@ public class MainClass {
         String datatype = "air_temperature_4";
         double val = handler.getaData(time, location, lat, lon, datatype) ;
         val=val- 273.15;
-        double tempature=roundValue(val);
+        double air_temperature_4=roundValue(val);
 
         datatype = "cloud_area_fraction_79";
        val = handler.getaData(time, location, lat, lon, datatype);
 
-       double cloud_area_fraction=roundValue(val);
+       double cloud_area_fraction_79=roundValue(val);
 
         datatype ="precipitation_amount_353";
         val=handler.getaData(time, location, lat, lon, datatype);
-        double rainAmounth=roundValue(val);
+        double precipitation_amount_353=roundValue(val);
 
         datatype = "eastward_wind_23";
         val=handler.getaData(time, location, lat, lon, datatype);
 
-        double eastward_wind=roundValue(val);
+        double eastward_wind_23=roundValue(val);
 
         datatype = "northward_wind_24";
         val=handler.getaData(time, location, lat, lon, datatype);
 
-        double northward_wind=roundValue(val);
+        double northward_wind_24=roundValue(val);
 
-        weather.setTempature(tempature);
-        weather.setCloud_area_fraction(cloud_area_fraction);
-        weather.setRainAmounth(rainAmounth);
-        weather.setEastward_wind(eastward_wind);
-        weather.setNorthward_wind(northward_wind);
+        weather.setAir_temperature_4(air_temperature_4);
+        weather.setCloud_area_fraction_79(cloud_area_fraction_79);
+        weather.setPrecipitation_amount_353(precipitation_amount_353);
+        weather.setEastward_wind_23(eastward_wind_23);
+        weather.setNorthward_wind_24(northward_wind_24);
         System.out.println();
         System.out.println();
         System.out.println();
