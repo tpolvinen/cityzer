@@ -1,5 +1,13 @@
 Items discussed
 
+--
+
+3.10.2017
+
+
+
+--
+
 pegasor and vaisala hardware producers.
 
 Emtele, sasken and hsy other services. weather radar knows where it rains now and where it will rain. cityzer has three coming hours of weather coming up. Open data from fmi, regarding radar? Air quality prediction is also part of the project. Many projects find money from outside organizations. FMI has precise location weather services, but citizer is free. Insurance companies, farmers and aviation. Sea transport uses weather info extensively. 
@@ -28,7 +36,7 @@ Weather geodiff, somebody makes conversions. Time, how long, where and rain amou
 
 Sasken questions about software, not content. Sasken will answer questions. Credit is available. 
 
-NOTIFIKAATIOITA EI TULE NYKYISIIN SOVELLUKSIIN. Kertym‰ kerrottuna ajalla. 
+NOTIFIKAATIOITA EI TULE NYKYISIIN SOVELLUKSIIN. Kertym√§ kerrottuna ajalla. 
 
 - Do we need a map?
 
@@ -46,7 +54,7 @@ English.
 
 - will we publish app and when and for which platforms?
 
-Sadekertym‰ kiinnostaa. Kaivojen kapasiteetti on rajallinen. 
+Sadekertym√§ kiinnostaa. Kaivojen kapasiteetti on rajallinen. 
 
 - who would maintain the backend after the course?
 
