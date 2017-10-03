@@ -9,12 +9,41 @@ FMI format expert Lasse Johansson. Jani Turpeinen, Sasken.
 - How does time work while inspecting the dump file?
 - Which fields are necessary (wind etc)?
 - Is historical data needed - do we need database?
+- Configuration of notifications?
 - How many sensors in Helsinki - 7 ? Prediction based on those - Sea effect in prediction?
 - Callback urlin pystyy rekisteröimään, pitää filtteröidä oikea ennuste joukosta
-- 
-- 
-- 
-- 
+- Tee ensin sketchupilla UI
+- Asetusten 
+
+TEAM HAS DONE
+
+- Geolocation is implemented using Google
+- Backlogi on trellossa
+- CUSTOMER NEEDS
+- What cloudiness means? According to Harri 8/8 might be fully cloudy
+- How to configure notifications? Which factors?
+- Which data is in question is found from date? 
+- DATA HAS BEEN UPDATED 1.1.2017 12:00
+- TIME IS TOO SMALL WITH WHITE FONT
+- TIME COULD CHANGE WHEN CLICKING +2H AND +3H
+- FRONT SHOULD CALCULATE UNITS
+- CELSIUS -> TEMPERATURE
+- TEMPERATURE SHOULD BE BLACK FONT SO THAT IT CAN BE READ
+- ASETUSTEN SÄÄTÖ PUSH NOTIFIKAATIOLLA
+- PÄIVITTÄMISEN VOI TEHDÄ ALASPÄIN VETÄMÄLLÄ
+- WEATHER NOW TIMESTAMP MUUTTUU
+- VIIRILLÄ VOI TOTEUTTAA TUULENSUUNNAN JA SEN VOIMAKKUUDEN SEKÄ ANIMAATIO LIPUN HEILUMISESTA
+- NOTIKAATIOT -> SADEVAROITUS KUINKA MONTA TUNTIA AIKAISEMMIN VAI KAIKKI TUNNIT, TIETTY TODENNÄKÖISYYS, TYÖNNÄ NOTIKAATIOT
+  VAROITUS JOS KOLMEN TUNNIN SISÄLLÄ SATAA VAI KAHDEN TUNNIN SISÄLLÄ
+
+- SÄÄTUTKAJUTTU TULEE VIIDEN MINUUTIN VÄLEIN
+- TASKI BACKENDIIN CALL BACKISTÄ
+- TODENNÄKÖISYYS ON TULOSSA
+
+
+
+
+
 
 --
 
