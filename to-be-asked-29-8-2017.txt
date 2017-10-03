@@ -13,7 +13,8 @@ FMI format expert Lasse Johansson. Jani Turpeinen, Sasken.
 - How many sensors in Helsinki - 7 ? Prediction based on those - Sea effect in prediction?
 - Callback urlin pystyy rekisteröimään, pitää filtteröidä oikea ennuste joukosta
 - Tee ensin sketchupilla UI
-- Asetusten 
+- Asetusten SÄÄTÖ
+- BALSAMIQ MOCKUP
 
 TEAM HAS DONE
 
