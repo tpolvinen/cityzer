@@ -1,5 +1,8 @@
 package com.haagahelia.cityzer.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Weather {
     private double air_temperature_4;
     private double precipitation_amount_353;

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class WorkingOnConsole {
 
 
-    public static void main(String[] args) throws IOException, InvalidRangeException {
+    /*public static void main(String[] args) throws IOException, InvalidRangeException {
 
 
         int time=24;
@@ -26,7 +26,7 @@ public class WorkingOnConsole {
         f.makeDataSet(time, lat, lon);
 
 
-    }
+    }*/
 
 
 }

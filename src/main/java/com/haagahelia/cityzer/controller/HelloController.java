@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class HelloController {
 
-    @RequestMapping("*")
+    @RequestMapping("/hei")
     public String hei() {
         return "Spring sanoo hei!";
     }
