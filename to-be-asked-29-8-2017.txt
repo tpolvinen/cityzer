@@ -10,9 +10,11 @@ FMI format expert Lasse Johansson. Jani Turpeinen, Sasken.
 - Which fields are necessary (wind etc)?
 - Is historical data needed - do we need database?
 - How many sensors in Helsinki - 7 ? Prediction based on those - Sea effect in prediction?
+- Callback urlin pystyy rekisteröimään, pitää filtteröidä oikea ennuste joukosta
 - 
-
-
+- 
+- 
+- 
 
 --
 
