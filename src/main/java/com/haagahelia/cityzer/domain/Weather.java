@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Weather {
+
+    // TODO: find out if it is possible to get all four hours's data in to a single Weather
+
     private double air_temperature_4;
     private double precipitation_amount_353;
     private double cloud_area_fraction_79;

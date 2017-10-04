@@ -9,14 +9,17 @@ import com.haagahelia.cityzer.util.NetCdfHandler;
 import ucar.ma2.InvalidRangeException;
 import ucar.nc2.dt.*;
 
+
 @Service
 public class FeatureDatasetFactoryManager {
+
     public Weather makeDataSet(Weather weather, int time, double lat, double lon) throws IOException, InvalidRangeException {
+
+        // TODO: find out if it is possible to get all four hours's data in to a single Weather
 
         NetCdfHandler handler = new NetCdfHandler();
 
-        //Weather weather = new Weather();
-
+        // TODO: move location path to application.properties file
         String location = "/Users/tatu/Desktop/Cityzer/_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-09-11T00_00_00Z.nc";
 
         String datatype = "air_temperature_4";
