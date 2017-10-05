@@ -2,6 +2,7 @@ package com.haagahelia.cityzer.util;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+
 import org.springframework.stereotype.Service;
 
 import com.haagahelia.cityzer.domain.Weather;
@@ -13,14 +14,14 @@ import ucar.nc2.dt.*;
 @Service
 public class FeatureDatasetFactoryManager {
 
-    public Weather makeDataSet(Weather weather, int time, double lat, double lon) throws IOException, InvalidRangeException {
+    public Weather makeDataSet(Weather weather, String weatherfilepath, int time, double lat, double lon)
+            throws IOException, InvalidRangeException {
 
         // TODO: find out if it is possible to get all four hours's data in to a single Weather
 
         NetCdfHandler handler = new NetCdfHandler();
 
-        // TODO: move location path to application.properties file
-        String location = "/Users/tatu/Desktop/Cityzer/_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-09-11T00_00_00Z.nc";
+        String location = weatherfilepath;
 
         String datatype = "air_temperature_4";
         double val = handler.getaData(time, location, lat, lon, datatype) ;

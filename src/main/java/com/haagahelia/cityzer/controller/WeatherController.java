@@ -1,6 +1,7 @@
 package com.haagahelia.cityzer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,9 @@ public class WeatherController {
     @Autowired
     Weather weather;
 
+    @Value("${weather.filepath}")
+    private String weatherfilepath;
+
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody Weather getWeather(@RequestParam int time, @RequestParam double lat, @RequestParam double lon) throws IOException, InvalidRangeException {
@@ -32,7 +36,7 @@ public class WeatherController {
         // TODO: how to calculate the hours from the data to current time and then pass that int as "time" parameter?
 
         FeatureDatasetFactoryManager fdfm = new FeatureDatasetFactoryManager();
-        fdfm.makeDataSet(weather, time, lat, lon);
+        fdfm.makeDataSet(weather, weatherfilepath, time, lat, lon);
 
         return weather;
     }
