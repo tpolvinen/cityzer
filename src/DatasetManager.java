@@ -194,7 +194,7 @@ public class DatasetManager {
 
             String datatype = "air_temperature_4";
             double val = handler.getaData(time, location, lat, lon, datatype) ;
-            val=val- 273.15;
+            // val=val- 273.15; // No longer needed: Front-end will handle conversions from Kelvin to Celcius/Fahrenheit
             double air_temperature_4=roundValue(val);
 
             datatype = "cloud_area_fraction_79";
