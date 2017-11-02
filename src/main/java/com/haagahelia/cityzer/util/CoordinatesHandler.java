@@ -1,10 +1,17 @@
 package com.haagahelia.cityzer.util;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class CoordinatesHandler {
 
-    public static void main(String[] args)
-    {
-        //latitudet
+    public static String finder(double userLat, double userLon, double[] latsArray, double[] lonsArray) {
+
+       /* //latitudet
         double[] latitudes = new double[10];
         latitudes[0] = 100.234;
         latitudes[1] = -34200.4324;
@@ -32,14 +39,21 @@ public class CoordinatesHandler {
 
         //käyttäjän koordinaatit
         double userLat=525;
-        double userLon=125;
+        double userLon=125;*/
 
         //hae lähimmät pisteet taulukoista käyttäjän koordinaatteihin katsoen
-        double closestLat = FindClosest(userLat,latitudes);
-        double closestLon = FindClosest(userLon,longitudes);
+        double closestLat = FindClosest(userLat,latsArray);
+        double closestLon = FindClosest(userLon,lonsArray);
 
-        System.out.println("Käyttäjän antama lat on "+userLat+". Lähin lat taulukosta on "+closestLat+".");
-        System.out.println("Käyttäjän antama lon on "+userLon+". Lähin lon taulukosta on "+closestLon+".");
+/*        System.out.println("Käyttäjän antama lat on "+userLat+". Lähin lat taulukosta on "+closestLat+".");
+        System.out.println("Käyttäjän antama lon on "+userLon+". Lähin lon taulukosta on "+closestLon+".");*/
+
+        String strLat = Double.toString(closestLat);
+        String strLon = Double.toString(closestLon);
+
+        String strLocation = strLat + " " + strLon;
+
+        return strLocation;
     }
 
 
