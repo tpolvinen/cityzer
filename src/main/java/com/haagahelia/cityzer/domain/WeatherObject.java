@@ -4,7 +4,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WeatherObject {
+    // This class is the same as WeatherCollection, but with
+    // added int time, int time_h, boolean success, boolean inrange, String message
 
+    private int time;
+    private int time_h;
+    private boolean success;
+    private boolean inrange;
+    private String message;
     private double lat;
     private double lon;
     private double air_temperature_4;
@@ -58,6 +65,46 @@ public class WeatherObject {
     private double northward_wind_24_8h;
     private double northward_wind_24_9h;
 
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public int getTime_h() {
+        return time_h;
+    }
+
+    public void setTime_h(int time_h) {
+        this.time_h = time_h;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public boolean isInrange() {
+        return inrange;
+    }
+
+    public void setInrange(boolean inrange) {
+        this.inrange = inrange;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public double getLat() {
         return lat;
@@ -478,8 +525,13 @@ public class WeatherObject {
 
     @Override
     public String toString() {
-        return "WeatherCollection{" +
-                "lat=" + lat +
+        return "WeatherObject{" +
+                "time=" + time +
+                ", time_h=" + time_h +
+                ", success=" + success +
+                ", inrange=" + inrange +
+                ", message='" + message + '\'' +
+                ", lat=" + lat +
                 ", lon=" + lon +
                 ", air_temperature_4=" + air_temperature_4 +
                 ", air_temperature_4_1h=" + air_temperature_4_1h +

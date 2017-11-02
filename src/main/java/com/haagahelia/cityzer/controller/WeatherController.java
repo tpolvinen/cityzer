@@ -12,23 +12,25 @@ import ucar.ma2.InvalidRangeException;
 
 import java.io.IOException;
 
-import com.haagahelia.cityzer.domain.WeatherObject;
+import com.haagahelia.cityzer.util.JSON_Reader;
+
+import org.json.simple.JSONObject;
 
 @RestController
-@RequestMapping(value = "/api/getWeather")
 public class WeatherController {
 
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public WeatherObject getWeather(@RequestParam double lat, @RequestParam double lon) throws IOException, InvalidRangeException {
+    @RequestMapping(value = "/api/getWeather", method = RequestMethod.GET, produces = "application/json")
+    public JSONObject getWeather(@RequestParam double lat, @RequestParam double lon) throws IOException, InvalidRangeException {
 
         // TODO: LATER: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
-        // TODO: import (?) the /var/www/html/api/outputJSON.json file
         // TODO: pick the right JSON object from outputJSON.json file
         // TODO: return the right JSON object
-        WeatherObject weatherObject = new WeatherObject();
 
-        return weatherObject;
+        JSONObject jsonObject;
+
+        return JSON_Reader.reader(lat,lon);
+
     }
 
 }
