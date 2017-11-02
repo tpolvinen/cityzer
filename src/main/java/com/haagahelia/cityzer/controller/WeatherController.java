@@ -8,33 +8,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-import com.haagahelia.cityzer.util.FeatureDatasetFactoryManager;
-import com.haagahelia.cityzer.domain.Weather;
-
 import ucar.ma2.InvalidRangeException;
 
 import java.io.IOException;
+
+import com.haagahelia.cityzer.domain.WeatherObject;
 
 @RestController
 @RequestMapping(value = "/api/getWeather")
 public class WeatherController {
 
-    @Autowired
-    FeatureDatasetFactoryManager featureDatasetFactoryManager;
-
-    @Autowired
-    Weather weather;
-
     @CrossOrigin
-    @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody Weather getWeather(@RequestParam int time, @RequestParam double lat, @RequestParam double lon) throws IOException, InvalidRangeException {
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public WeatherObject getWeather(@RequestParam double lat, @RequestParam double lon) throws IOException, InvalidRangeException {
 
-        // TODO: how to calculate the hours from the data to current time and then pass that int as "time" parameter?
+        // TODO: LATER: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
+        // TODO: import (?) the /var/www/html/api/outputJSON.json file
+        // TODO: pick the right JSON object from outputJSON.json file
+        // TODO: return the right JSON object
+        WeatherObject weatherObject = new WeatherObject();
 
-        FeatureDatasetFactoryManager fdfm = new FeatureDatasetFactoryManager();
-        fdfm.makeDataSet(weather, time, lat, lon);
-
-        return weather;
+        return weatherObject;
     }
 
 }
