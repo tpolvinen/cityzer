@@ -11,7 +11,7 @@ public class JSON_Reader {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
-    public static JSONObject reader(double lat, double lon)  {
+    public static JSONObject reader(double lat, double lon, String filepath)  {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
@@ -21,9 +21,11 @@ public class JSON_Reader {
         String strLon = Double.toString(lon);
         String strLocation = strLat + " " + strLon;
 
+        String filepath = filepath;
+
         try {
             Object object = parser
-                    .parse(new FileReader("/Users/tatu/Desktop/Cityzer/omaOutputJSON.json"));
+                    .parse(new FileReader(filepath));
 
             jsonObject = (JSONObject) object;
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
