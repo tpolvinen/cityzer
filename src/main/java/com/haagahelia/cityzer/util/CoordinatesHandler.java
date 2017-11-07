@@ -81,7 +81,7 @@ public class CoordinatesHandler {
 
     // source: https://stackoverflow.com/questions/1187352/find-closest-value-in-an-ordererd-list
     // refactoring from int to double
-    public double closest(double of, List<Double> in) {
+    public static double closest(double of, List<Double> in) {
         double min = Double.MAX_VALUE;
         double closest = of;
 
