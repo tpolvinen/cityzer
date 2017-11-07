@@ -26,11 +26,8 @@ public class WeatherController {
     public JSONObject getWeather(@RequestParam double userLat, @RequestParam double userLon) throws IOException, InvalidRangeException {
 
         // TODO: LATER: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
-        // TODO: pick the right JSON object from outputJSON.json file
-        // TODO: return the right JSON object
 
-        // TODO: add here the call for CoordinatesHandler(lat, lon)
-
+        // TODO: return the right JSON object -now this SOMETIMES returns null WeatherObjects!!! ¯\_(ツ)_/¯
         
         JSONObject jsonObject;
 

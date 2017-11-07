@@ -22,13 +22,14 @@ public class JSON_Reader {
         JSONArray latsArraylist = null;
         JSONArray lonsArraylist = null;
 
-                String path = filepath;
+        String path = filepath;
 
         try {
             Object object = parser.parse(new FileReader(path));
 
             jsonObject = (JSONObject) object;
 
+            // TODO: refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
@@ -47,8 +48,6 @@ public class JSON_Reader {
                 System.out.println(lonsArraylist);
             }
 
-                    // TODO: How to convert JSONArray to ArrayList<Double>? ¯\_(ツ)_/¯
-
             ArrayList<Double> latsList = new ArrayList<Double>();
             if (latsArraylist != null) {
                 int len = latsArraylist.size();
@@ -65,15 +64,14 @@ public class JSON_Reader {
                 }
             }
 
-
             String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
             System.out.println(strLocation);
 
-
             //strLocation = userLat + " " + userLon;
 
-            // TODO: find out why this returns null weatherJsonObject
-            // TODO: ...but http://localhost:8080/api/getWeather?time=0&userLat=59.1&userLon=24.96599006652832 IS FINE!
+            // TODO: find out why this SOMETIMES returns null weatherJsonObject
+            // TODO: ...like http://localhost:8080/api/getWeather?time=0&userLat=59.1&userLon=24.96599006652832 IS FINE!
+            // TODO: This returns null WeatherObject, but strLocation is ok: 60.37255 25.64626  http://localhost:8080/api/getWeather?time=0&userLat=60.39621860539766&userLon=25.662238597869873
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
             System.out.println(weatherJsonObject);
 
