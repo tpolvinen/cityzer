@@ -47,9 +47,9 @@ public class JSON_Reader {
 
             lonsArray = ArrayReader(latsOrLons);
 
-            CoordinatesHandler.finder(userLat, userLon, latsArray, lonsArray);
+            strLocation = CoordinatesHandler.finder(userLat, userLon, latsArray, lonsArray);
 
-
+            // TODO: get the weatherJsonObject with strLocation
 
         } catch (FileNotFoundException fe) {
             fe.printStackTrace();
@@ -69,7 +69,7 @@ public class JSON_Reader {
 
 
         // TODO: cast (or something?) JSONArray jsonLatsLons to double[] doubleLatsLons
-        
+
         return doubleLatsLons;
     }
 
