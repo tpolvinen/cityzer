@@ -29,13 +29,6 @@ public class JSON_Reader {
 
             jsonObject = (JSONObject) object;
 
-            // Will this work? REPONSE_JSON_OBJECT.getJSONObject("lats").getJSONArray("storage");
-            // source: https://stackoverflow.com/questions/14898768/how-to-access-nested-elements-of-json-object-using-getjsonarray-method
-
-
-            //JSONArray latsArray = (JSONArray)jsonObject.get("lats").getJSONArray("storage");
-            //JSONArray lonsArray = (JSONArray)jsonObject.get("lons").getJSONArray("storage");
-
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
@@ -54,29 +47,7 @@ public class JSON_Reader {
                 System.out.println(lonsArraylist);
             }
 
-            //JSONArray latsStorageArray = (JSONArray)latsObject.get("storage");
-
-            //JSONObject lonsObject = (JSONObject) jsonObject.get("lons");
-            //JSONArray lonsStorageArray = (JSONArray)lonsObject.get("storage");
-
-            //JSONObject lonsObject = (JSONObject)jsonObject.get("lons");
-            // JSONArray lonsArray = (JSONArray)lonsObject.get("storage");
-
-            // Nope.
-            // So much nope.
-            // source: https://stackoverflow.com/questions/2255220/how-to-parse-a-json-and-turn-its-values-into-an-array
-            // JSONObject myjson = new JSONObject(jsonObject);
-            // JSONArray the_json_array = myjson.getJSONArray("profiles");
-
-            // source: https://stackoverflow.com/questions/1568762/accessing-members-of-items-in-a-jsonarray-with-java
-//            for (int i = 0; i < recs.length(); ++i) {
-//                JSONObject rec = recs.getJSONObject(i);
-//                int id = rec.getInt("id");
-//                String loc = rec.getString("loc");
-//                // ...
-//            }
-
-                    // TODO: How to convert JSONArray to ArrayList<Double>?
+                    // TODO: How to convert JSONArray to ArrayList<Double>? ¯\_(ツ)_/¯
 
             ArrayList<Double> latsList = new ArrayList<Double>();
             if (latsArraylist != null) {
@@ -101,9 +72,10 @@ public class JSON_Reader {
 
             //strLocation = userLat + " " + userLon;
 
-            // TODO: get the weatherJsonObject with strLocation
-
+            // TODO: find out why this returns null weatherJsonObject
+            // TODO: ...but http://localhost:8080/api/getWeather?time=0&userLat=59.1&userLon=24.96599006652832 IS FINE!
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
+            System.out.println(weatherJsonObject);
 
         } catch (FileNotFoundException fe) {
             fe.printStackTrace();
