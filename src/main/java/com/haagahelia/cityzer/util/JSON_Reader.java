@@ -2,7 +2,7 @@ package com.haagahelia.cityzer.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -27,6 +27,8 @@ public class JSON_Reader {
 
         String latsOrLons = null;
         double[] doubleLatsLons = null;
+        double[] latitudes = null;
+        double[] longitudes = null;
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -38,10 +40,31 @@ public class JSON_Reader {
 
             // TODO: How to convert JSONArray arrays/objects to double[] arrays?
 
-            double[] latitudes = latsArray; // THIS DOES NOT WORK!!!
-            double[] longitudes = lonsArray;
+            // double[] latitudes = latsArray; // THIS DOES NOT WORK!!!
+            // double[] latitudes = toDoubleArray(latsArray);
+            // double[] longitudes = toDoubleArray(lonsArray);
 
-            String strLocation = CoordinatesHandler.finder(userLat, userLon, latitudes, longitudes);
+
+            ArrayList<Double> latsList = new ArrayList<Double>();
+            JSONArray latsJsonArray = (JSONArray)jsonObject.get("lats");
+            if (latsJsonArray != null) {
+                int len = latsJsonArray.size();
+                for (int i=0;i<len;i++){
+                    latsList.add(Double.parseDouble(latsJsonArray.get(i).toString()));
+                }
+            }
+
+            ArrayList<Double> lonsList = new ArrayList<Double>();
+            JSONArray lonsJsonArray = (JSONArray)jsonObject.get("lons");
+            if (lonsJsonArray != null) {
+                int len = lonsJsonArray.size();
+                for (int i=0;i<len;i++){
+                    lonsList.add(Double.parseDouble(lonsJsonArray.get(i).toString()));
+                }
+            }
+
+
+            String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
 
             //strLocation = userLat + " " + userLon;
 
