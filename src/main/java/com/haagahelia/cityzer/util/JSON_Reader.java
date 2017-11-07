@@ -23,11 +23,7 @@ public class JSON_Reader {
         JSONObject jsonObject = null;
         JSONObject weatherJsonObject = null;
 
-        String strLocation = null;
         String path = filepath;
-
-        double[] latsArray = null;
-        double[] lonsArray = null;
 
         String latsOrLons = null;
         double[] doubleLatsLons = null;
@@ -37,17 +33,17 @@ public class JSON_Reader {
 
             jsonObject = (JSONObject) object;
 
+            JSONArray latsArray = (JSONArray)jsonObject.get("lats");
+            JSONArray lonsArray = (JSONArray)jsonObject.get("lons");
+
+            // TODO: How to convert JSONArray arrays/objects to double[] arrays?
+
+            double[] latitudes = latsArray; // THIS DOES NOT WORK!!!
+            double[] longitudes = lonsArray;
+
+            String strLocation = CoordinatesHandler.finder(userLat, userLon, latitudes, longitudes);
+
             //strLocation = userLat + " " + userLon;
-
-            latsOrLons = "lats";
-
-            latsArray = ArrayReader(latsOrLons);
-
-            latsOrLons = "lons";
-
-            lonsArray = ArrayReader(latsOrLons);
-
-            strLocation = CoordinatesHandler.finder(userLat, userLon, latsArray, lonsArray);
 
             // TODO: get the weatherJsonObject with strLocation
 
@@ -58,19 +54,6 @@ public class JSON_Reader {
         }
 
         return weatherJsonObject;
-    }
-
-    static double[] ArrayReader(String latsOrLons) {
-
-        double[] doubleLatsLons = null;
-
-        //Reading the array
-        JSONArray jsonLatsLons = (JSONArray)jsonObject.get(latsOrLons);
-
-
-        // TODO: cast (or something?) JSONArray jsonLatsLons to double[] doubleLatsLons
-
-        return doubleLatsLons;
     }
 
 }
