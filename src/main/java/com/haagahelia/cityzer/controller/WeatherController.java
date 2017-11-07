@@ -31,10 +31,7 @@ public class WeatherController {
 
         // TODO: add here the call for CoordinatesHandler(lat, lon)
 
-
-
-
-
+        
         JSONObject jsonObject;
 
         return JSON_Reader.weatherReader(userLat, userLon, filepath);

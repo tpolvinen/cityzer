@@ -2,6 +2,7 @@ package com.haagahelia.cityzer.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,6 +23,7 @@ public class JSON_Reader {
         JSONObject jsonObject = null;
         JSONObject weatherJsonObject = null;
 
+        String strLocation = null;
         String path = filepath;
 
         try {
@@ -29,13 +31,7 @@ public class JSON_Reader {
 
             jsonObject = (JSONObject) object;
 
-            JSONArray latsArray = (JSONArray)jsonObject.get("lats");
-            JSONArray lonsArray = (JSONArray)jsonObject.get("lons");
-
-            double[] latitudes = latsArray;
-            double[] longitudes = lonsArray;
-
-            String strLocation = CoordinatesHandler.finder(userLat, userLon, latitudes, longitudes);
+            strLocation = userLat + " " + userLon;
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
