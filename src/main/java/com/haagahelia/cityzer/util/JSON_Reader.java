@@ -26,14 +26,30 @@ public class JSON_Reader {
         String strLocation = null;
         String path = filepath;
 
+        double[] latsArray = null;
+        double[] lonsArray = null;
+
+        String latsOrLons = null;
+        double[] doubleLatsLons = null;
+
         try {
             Object object = parser.parse(new FileReader(path));
 
             jsonObject = (JSONObject) object;
 
-            strLocation = userLat + " " + userLon;
+            //strLocation = userLat + " " + userLon;
 
-            weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
+            latsOrLons = "lats";
+
+            latsArray = ArrayReader(latsOrLons);
+
+            latsOrLons = "lons";
+
+            lonsArray = ArrayReader(latsOrLons);
+
+            CoordinatesHandler.finder(userLat, userLon, latsArray, lonsArray);
+
+
 
         } catch (FileNotFoundException fe) {
             fe.printStackTrace();
@@ -42,6 +58,19 @@ public class JSON_Reader {
         }
 
         return weatherJsonObject;
+    }
+
+    static double[] ArrayReader(String latsOrLons) {
+
+        double[] doubleLatsLons = null;
+
+        //Reading the array
+        JSONArray jsonLatsLons = (JSONArray)jsonObject.get(latsOrLons);
+
+
+        // TODO: cast (or something?) JSONArray jsonLatsLons to double[] doubleLatsLons
+        
+        return doubleLatsLons;
     }
 
 }
