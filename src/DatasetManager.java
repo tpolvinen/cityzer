@@ -134,6 +134,7 @@ public class DatasetManager {
 
             String datatype = "air_temperature_4";
             double val = handler.getaData(time, location, lat, lon, datatype) ;
+
             double air_temperature_4=roundValue(val);
 
             datatype = "cloud_area_fraction_79";

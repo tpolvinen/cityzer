@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74e9a384-382e-4687-8de6-e5c278a9b6b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/databaseHandler_jar/databaseHandler.jar" afterPath="$PROJECT_DIR$/out/artifacts/databaseHandler_jar/databaseHandler.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/databaseHandler/DatasetManager.class" afterPath="$PROJECT_DIR$/out/production/databaseHandler/DatasetManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DatasetManager.java" afterPath="$PROJECT_DIR$/src/DatasetManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -37,8 +34,8 @@
       <file leaf-file-name="DatasetManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DatasetManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
-              <caret line="104" column="44" lean-forward="false" selection-start-line="104" selection-start-column="34" selection-end-line="104" selection-end-column="44" />
+            <state relative-caret-position="-610">
+              <caret line="139" column="12" lean-forward="true" selection-start-line="139" selection-start-column="12" selection-end-line="139" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -108,7 +105,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="648" />
     <option name="width" value="1279" />
     <option name="height" value="1047" />
@@ -325,12 +322,12 @@
       <workItem from="1509437708422" duration="5552000" />
       <workItem from="1509612331909" duration="2605000" />
       <workItem from="1510039691699" duration="12265000" />
-      <workItem from="1510211682811" duration="1599000" />
+      <workItem from="1510211682811" duration="1941000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54495000" />
+    <option name="totallyTimeSpent" value="54837000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -342,7 +339,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -749,8 +746,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DatasetManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="104" column="44" lean-forward="false" selection-start-line="104" selection-start-column="34" selection-end-line="104" selection-end-column="44" />
+        <state relative-caret-position="-610">
+          <caret line="139" column="12" lean-forward="true" selection-start-line="139" selection-start-column="12" selection-end-line="139" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
