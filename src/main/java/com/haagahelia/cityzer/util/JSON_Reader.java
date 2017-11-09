@@ -79,8 +79,7 @@ public class JSON_Reader {
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
             //System.out.println(weatherJsonObject);
 
-            // TODO: append these to weatherJsonObject:
-            // TODO:  int time int time_h boolean success boolean inrange String message
+            // TODO: refactor these to a single method:
 
             String timeKey = "time";
             Integer timeValue = timevar;
