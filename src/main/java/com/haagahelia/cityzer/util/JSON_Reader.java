@@ -11,6 +11,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 import com.haagahelia.cityzer.util.CoordinatesHandler;
+import com.haagahelia.cityzer.domain.LocationObject;
 
 public class JSON_Reader {
 
@@ -26,13 +27,17 @@ public class JSON_Reader {
 
         String path = filepath;
 
+        LocationObject locationObject;
+
         // TODO: get these values from wherever
 
         int timevar = 0;
         int time_hvar = 0;
-        boolean successvar = false;
-        boolean inrangevar = false;
+        boolean successvar;
+        boolean inrangevar;
         String messagevar = "Message from JSON_Reader.java!";
+        double closestLatvar;
+        double closestLonvar;
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -42,6 +47,7 @@ public class JSON_Reader {
             successvar = true;
 
             // TODO: write some logic where coordinates are "in range" & adjust this accordingly
+            // 59 20 - 66 30
             inrangevar = true;
 
             // TODO: refactor these to a single method:
@@ -79,7 +85,18 @@ public class JSON_Reader {
                 }
             }
 
-            String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
+            //String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
+            //System.out.println(strLocation);
+
+
+            locationObject = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
+
+            String strLocation = locationObject.getStrLocation();
+            closestLatvar = locationObject.getClosestLat();
+            closestLonvar = locationObject.getClosestLon();
+
+            //CoordinatesHandler.finder(userLat, userLon, latsList, lonsList).getStrLocation();
+
             System.out.println(strLocation);
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
@@ -105,6 +122,15 @@ public class JSON_Reader {
             String messagevarKey = "message";
             String messagevarValue = messagevar;
             weatherJsonObject.put(messagevarKey, messagevarValue);
+
+            String closestLatKey = "closestLat";
+            Double closestLatValue = closestLatvar;
+            weatherJsonObject.put(closestLatKey, closestLatValue);
+
+            String closestLonKey = "closestLon";
+            Double closestLonValue = closestLonvar;
+            weatherJsonObject.put(closestLonKey, closestLonValue);
+
 
             return weatherJsonObject;
 

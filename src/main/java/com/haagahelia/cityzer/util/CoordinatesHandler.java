@@ -3,9 +3,12 @@ package com.haagahelia.cityzer.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.haagahelia.cityzer.domain.LocationObject;
+
 public class CoordinatesHandler {
 
-    public static String finder(double userLat, double userLon, ArrayList<Double> latsArray, ArrayList<Double> lonsArray) {
+    public static LocationObject finder(double userLat, double userLon, ArrayList<Double> latsArray, ArrayList<Double> lonsArray) {
+
 
         double closestLat = closest(userLat,latsArray);
         double closestLon = closest(userLon,lonsArray);
@@ -15,7 +18,9 @@ public class CoordinatesHandler {
 
         String strLocation = strLat + " " + strLon;
 
-        return strLocation;
+        LocationObject locationObject = new LocationObject(strLocation, closestLat, closestLon);
+
+        return locationObject;
     }
 
     // source: https://stackoverflow.com/questions/1187352/find-closest-value-in-an-ordererd-list
