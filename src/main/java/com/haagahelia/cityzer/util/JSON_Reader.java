@@ -103,20 +103,23 @@ public class JSON_Reader {
             String messagevarValue = messagevar;
             weatherJsonObject.put(messagevarKey, messagevarValue);
 
+            return weatherJsonObject;
+
         } catch (FileNotFoundException fe) {
 
             //TODO: make this return weatherJsonObject with no values...
             // TODO: ...but success=false message="Something Went Wrong" or something(?)
-
             fe.printStackTrace();
+            return weatherJsonObject;
         } catch (Exception e) {
 
             //TODO: same as above here.
-            
             e.printStackTrace();
+            return weatherJsonObject;
         }
 
-        return weatherJsonObject;
+        // return weatherJsonObject;
+
     }
 
 }
