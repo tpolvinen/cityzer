@@ -36,13 +36,10 @@ public class JSON_Reader {
         int time_hvar = 0;
         boolean successvar;
         boolean inrangevar;
-        String messagevar = "Message from JSON_Reader.java!";
+        String messagevar; // = "Message from JSON_Reader.java!";
         double closestLatvar;
         double closestLonvar;
-        double latMax;
-        double latMin;
-        double lonMax;
-        double lonMin;
+
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -51,9 +48,7 @@ public class JSON_Reader {
 
             successvar = true;
 
-            // TODO: write some logic where coordinates are "in range" & adjust this accordingly
-            // 59 20 - 66 30
-            inrangevar = true;
+            //inrangevar = true;
 
             // TODO: refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
@@ -90,25 +85,20 @@ public class JSON_Reader {
                 }
             }
 
-
             locationObject = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
 
             String strLocation = locationObject.getStrLocation();
             closestLatvar = locationObject.getClosestLat();
             closestLonvar = locationObject.getClosestLon();
+            inrangevar = locationObject.isInrange();
+            if (locationObject.getMessage() != null) {
+                messagevar = locationObject.getMessage();
+            } else {
+                messagevar = "Message from JSON_Reader.java!";
+            }
 
             System.out.println(strLocation);
-
-            latMax = Collections.max(latsList);
-            latMin = Collections.min(latsList);
-            lonMax = Collections.max(lonsList);
-            lonMin = Collections.min(lonsList);
-
-            // TODO: make the math work!
-
-            if ((closestLatvar-10) < latMin ) {
-                inrangevar = false;
-            }
+            System.out.println(messagevar);
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
@@ -141,7 +131,6 @@ public class JSON_Reader {
             String closestLonKey = "closestLon";
             Double closestLonValue = closestLonvar;
             weatherJsonObject.put(closestLonKey, closestLonValue);
-
 
             return weatherJsonObject;
 
