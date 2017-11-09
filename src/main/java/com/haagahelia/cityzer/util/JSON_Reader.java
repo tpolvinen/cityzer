@@ -26,9 +26,10 @@ public class JSON_Reader {
 
         String path = filepath;
 
+        // TODO: get these values from wherever
+
         int timevar = 0;
         int time_hvar = 0;
-
         boolean successvar = false;
         boolean inrangevar = false;
         String messagevar = "Message from JSON_Reader.java!";
@@ -77,7 +78,6 @@ public class JSON_Reader {
             System.out.println(strLocation);
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
-            //System.out.println(weatherJsonObject);
 
             // TODO: refactor these to a single method:
 
@@ -103,14 +103,16 @@ public class JSON_Reader {
             String messagevarValue = messagevar;
             weatherJsonObject.put(messagevarKey, messagevarValue);
 
-            //System.out.println("After append:");
-
-            //System.out.println(weatherJsonObject);
-
-
         } catch (FileNotFoundException fe) {
+
+            //TODO: make this return weatherJsonObject with no values...
+            // TODO: ...but success=false message="Something Went Wrong" or something(?)
+
             fe.printStackTrace();
         } catch (Exception e) {
+
+            //TODO: same as above here.
+            
             e.printStackTrace();
         }
 
