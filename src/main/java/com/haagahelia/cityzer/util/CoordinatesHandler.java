@@ -52,7 +52,6 @@ public class CoordinatesHandler {
             message = message + ".";
         }
 
-
         LocationObject locationObject = new LocationObject(strLocation, closestLat, closestLon, inrange, message);
 
         return locationObject;

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
+import com.haagahelia.cityzer.domain.WeatherObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -36,7 +37,7 @@ public class JSON_Reader {
         int time_hvar = 0;
         boolean successvar;
         boolean inrangevar;
-        String messagevar; // = "Message from JSON_Reader.java!";
+        String messagevar;
         double closestLatvar;
         double closestLonvar;
 
@@ -91,7 +92,7 @@ public class JSON_Reader {
             closestLatvar = locationObject.getClosestLat();
             closestLonvar = locationObject.getClosestLon();
             inrangevar = locationObject.isInrange();
-            if (locationObject.getMessage() != null) {
+            if (locationObject.getMessage() != null && !locationObject.getMessage().isEmpty()) {
                 messagevar = locationObject.getMessage();
             } else {
                 messagevar = "Message from JSON_Reader.java!";
@@ -104,33 +105,57 @@ public class JSON_Reader {
 
             // TODO: refactor these to a single method:
 
+            //String timeKey = "time";
+            //Integer timeValue = timevar;
+            //weatherJsonObject.put(timeKey, timeValue);
+
+            //String time_hKey = "time_h";
+            //Integer time_hValue = time_hvar;
+            //weatherJsonObject.put(time_hKey, time_hValue);
+
+            //String successvarKey = "success";
+            //Boolean successvarValue = successvar;
+            //weatherJsonObject.put(successvarKey, successvarValue);
+
+            //String inrangevarKey = "inrange";
+            //Boolean inrangevarValue = inrangevar;
+            //weatherJsonObject.put(inrangevarKey, inrangevarValue);
+
+            //String messagevarKey = "message";
+            //String messagevarValue = messagevar;
+            //weatherJsonObject.put(messagevarKey, messagevarValue);
+
+            //String closestLatKey = "closestLat";
+            //Double closestLatValue = closestLatvar;
+            //weatherJsonObject.put(closestLatKey, closestLatValue);
+
+            //String closestLonKey = "closestLon";
+            //Double closestLonValue = closestLonvar;
+            //weatherJsonObject.put(closestLonKey, closestLonValue);
+
+
             String timeKey = "time";
-            Integer timeValue = timevar;
-            weatherJsonObject.put(timeKey, timeValue);
+            Function(timeKey, Integer.class, timevar, weatherJsonObject);
 
             String time_hKey = "time_h";
-            Integer time_hValue = time_hvar;
-            weatherJsonObject.put(time_hKey, time_hValue);
+            Function(time_hKey, Integer.class, time_hvar, weatherJsonObject);
 
             String successvarKey = "success";
-            Boolean successvarValue = successvar;
-            weatherJsonObject.put(successvarKey, successvarValue);
+            Function(successvarKey, Boolean.class, successvar, weatherJsonObject);
 
             String inrangevarKey = "inrange";
-            Boolean inrangevarValue = inrangevar;
-            weatherJsonObject.put(inrangevarKey, inrangevarValue);
+            Function(inrangevarKey, Boolean.class, inrangevar, weatherJsonObject);
 
             String messagevarKey = "message";
-            String messagevarValue = messagevar;
-            weatherJsonObject.put(messagevarKey, messagevarValue);
+            Function(messagevarKey, String.class, messagevar, weatherJsonObject);
 
             String closestLatKey = "closestLat";
-            Double closestLatValue = closestLatvar;
-            weatherJsonObject.put(closestLatKey, closestLatValue);
+            Function(closestLatKey, Double.class, closestLatvar, weatherJsonObject);
 
             String closestLonKey = "closestLon";
-            Double closestLonValue = closestLonvar;
-            weatherJsonObject.put(closestLonKey, closestLonValue);
+            Function(closestLonKey, Double.class, closestLonvar, weatherJsonObject);
+
+
 
             return weatherJsonObject;
 
@@ -169,8 +194,28 @@ public class JSON_Reader {
             return jsonObject;
         }
 
-        // return weatherJsonObject;
 
+    }
+
+    private static void Function(String key, Class<?> cls, Object var, JSONObject weatherJsonObject) {
+
+        if (cls == Integer.class) {
+            Integer value = (Integer) var;
+            weatherJsonObject.put(key, value);
+
+        } else if (cls == Boolean.class) {
+            Boolean value = (Boolean) var;
+            weatherJsonObject.put(key, value);
+
+        } else if (cls == String.class) {
+            String value = (String) var;
+            weatherJsonObject.put(key, value);
+
+        } else if (cls == Double.class) {
+            Double value = (Double) var;
+            weatherJsonObject.put(key, value);
+
+        }
     }
 
 }
