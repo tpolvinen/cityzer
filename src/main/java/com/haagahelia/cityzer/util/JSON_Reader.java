@@ -3,9 +3,11 @@ package com.haagahelia.cityzer.util;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 import com.haagahelia.cityzer.util.CoordinatesHandler;
@@ -23,6 +25,13 @@ public class JSON_Reader {
         JSONArray lonsArraylist = null;
 
         String path = filepath;
+
+        int timevar = 0;
+        int time_hvar = 0;
+
+        boolean successvar = false;
+        boolean inrangevar = false;
+        String messagevar = "Message from JSON_Reader.java!";
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -67,11 +76,38 @@ public class JSON_Reader {
             String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
             System.out.println(strLocation);
 
-            // TODO: take WeatherObject, cast it (?) to JSONObject, ->
-            // TODO: -> then put weatherJsonObject's data in to WeatherObject and finally return it.
-            
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
-            System.out.println(weatherJsonObject);
+            //System.out.println(weatherJsonObject);
+
+            // TODO: append these to weatherJsonObject:
+            // TODO:  int time int time_h boolean success boolean inrange String message
+
+            String timeKey = "time";
+            Integer timeValue = timevar;
+            //String timeValue = String.valueOf(timevar);
+            weatherJsonObject.put(timeKey, timeValue);
+
+            String time_hKey = "time_h";
+            Integer time_hValue = time_hvar;
+            //String time_hValue = String.valueOf(time_hvar);
+            weatherJsonObject.put(time_hKey, time_hValue);
+
+            String successvarKey = "success";
+            Boolean successvarValue = successvar;
+            weatherJsonObject.put(successvarKey, successvarValue);
+
+            String inrangevarKey = "inrange";
+            Boolean inrangevarValue = inrangevar;
+            weatherJsonObject.put(inrangevarKey, inrangevarValue);
+
+            String messagevarKey = "message";
+            String messagevarValue = messagevar;
+            weatherJsonObject.put(messagevarKey, messagevarValue);
+
+            //System.out.println("After append:");
+
+            //System.out.println(weatherJsonObject);
+
 
         } catch (FileNotFoundException fe) {
             fe.printStackTrace();
