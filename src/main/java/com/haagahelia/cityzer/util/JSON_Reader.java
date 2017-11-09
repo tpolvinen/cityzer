@@ -3,16 +3,11 @@ package com.haagahelia.cityzer.util;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
-import com.haagahelia.cityzer.domain.WeatherObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
-import com.haagahelia.cityzer.util.CoordinatesHandler;
 import com.haagahelia.cityzer.domain.LocationObject;
 
 public class JSON_Reader {
@@ -48,8 +43,6 @@ public class JSON_Reader {
             jsonObject = (JSONObject) object;
 
             successvar = true;
-
-            //inrangevar = true;
 
             // TODO: refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
@@ -103,57 +96,27 @@ public class JSON_Reader {
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
-            // TODO: refactor these to a single method:
-
-            //String timeKey = "time";
-            //Integer timeValue = timevar;
-            //weatherJsonObject.put(timeKey, timeValue);
-
-            //String time_hKey = "time_h";
-            //Integer time_hValue = time_hvar;
-            //weatherJsonObject.put(time_hKey, time_hValue);
-
-            //String successvarKey = "success";
-            //Boolean successvarValue = successvar;
-            //weatherJsonObject.put(successvarKey, successvarValue);
-
-            //String inrangevarKey = "inrange";
-            //Boolean inrangevarValue = inrangevar;
-            //weatherJsonObject.put(inrangevarKey, inrangevarValue);
-
-            //String messagevarKey = "message";
-            //String messagevarValue = messagevar;
-            //weatherJsonObject.put(messagevarKey, messagevarValue);
-
-            //String closestLatKey = "closestLat";
-            //Double closestLatValue = closestLatvar;
-            //weatherJsonObject.put(closestLatKey, closestLatValue);
-
-            //String closestLonKey = "closestLon";
-            //Double closestLonValue = closestLonvar;
-            //weatherJsonObject.put(closestLonKey, closestLonValue);
-
 
             String timeKey = "time";
-            Function(timeKey, Integer.class, timevar, weatherJsonObject);
+            writeJsonObject(timeKey, timevar, weatherJsonObject);
 
             String time_hKey = "time_h";
-            Function(time_hKey, Integer.class, time_hvar, weatherJsonObject);
+            writeJsonObject(time_hKey, time_hvar, weatherJsonObject);
 
             String successvarKey = "success";
-            Function(successvarKey, Boolean.class, successvar, weatherJsonObject);
+            writeJsonObject(successvarKey, successvar, weatherJsonObject);
 
             String inrangevarKey = "inrange";
-            Function(inrangevarKey, Boolean.class, inrangevar, weatherJsonObject);
+            writeJsonObject(inrangevarKey, inrangevar, weatherJsonObject);
 
             String messagevarKey = "message";
-            Function(messagevarKey, String.class, messagevar, weatherJsonObject);
+            writeJsonObject(messagevarKey, messagevar, weatherJsonObject);
 
             String closestLatKey = "closestLat";
-            Function(closestLatKey, Double.class, closestLatvar, weatherJsonObject);
+            writeJsonObject(closestLatKey, closestLatvar, weatherJsonObject);
 
             String closestLonKey = "closestLon";
-            Function(closestLonKey, Double.class, closestLonvar, weatherJsonObject);
+            writeJsonObject(closestLonKey, closestLonvar, weatherJsonObject);
 
 
 
@@ -166,12 +129,10 @@ public class JSON_Reader {
             messagevar = "Weather data file was not found on server.";
 
             String successvarKey = "success";
-            Boolean successvarValue = successvar;
-            jsonObject.put(successvarKey, successvarValue);
+            writeJsonObject(successvarKey, successvar, jsonObject);
 
             String messagevarKey = "message";
-            String messagevarValue = messagevar;
-            jsonObject.put(messagevarKey, messagevarValue);
+            writeJsonObject(messagevarKey, messagevar, jsonObject);
 
             fe.printStackTrace();
             return jsonObject;
@@ -183,39 +144,24 @@ public class JSON_Reader {
             messagevar = "Something went wrong.";
 
             String successvarKey = "success";
-            Boolean successvarValue = successvar;
-            jsonObject.put(successvarKey, successvarValue);
+            writeJsonObject(successvarKey, successvar, jsonObject);
 
             String messagevarKey = "message";
-            String messagevarValue = messagevar;
-            jsonObject.put(messagevarKey, messagevarValue);
+            writeJsonObject(messagevarKey, messagevar, jsonObject);
 
             e.printStackTrace();
             return jsonObject;
         }
 
-
     }
 
-    private static void Function(String key, Class<?> cls, Object var, JSONObject weatherJsonObject) {
+    private static void writeJsonObject(String jsonKey, Object var, JSONObject weatherJsonObject) {
 
-        if (cls == Integer.class) {
-            Integer value = (Integer) var;
-            weatherJsonObject.put(key, value);
+        String key = jsonKey;
+        Object value = var;
 
-        } else if (cls == Boolean.class) {
-            Boolean value = (Boolean) var;
-            weatherJsonObject.put(key, value);
+        weatherJsonObject.put(key, value);
 
-        } else if (cls == String.class) {
-            String value = (String) var;
-            weatherJsonObject.put(key, value);
-
-        } else if (cls == Double.class) {
-            Double value = (Double) var;
-            weatherJsonObject.put(key, value);
-
-        }
     }
 
 }
