@@ -39,6 +39,11 @@ public class JSON_Reader {
 
             jsonObject = (JSONObject) object;
 
+            successvar = true;
+
+            // TODO: write some logic where coordinates are "in range" & adjust this accordingly
+            inrangevar = true;
+
             // TODO: refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
@@ -83,12 +88,10 @@ public class JSON_Reader {
 
             String timeKey = "time";
             Integer timeValue = timevar;
-            //String timeValue = String.valueOf(timevar);
             weatherJsonObject.put(timeKey, timeValue);
 
             String time_hKey = "time_h";
             Integer time_hValue = time_hvar;
-            //String time_hValue = String.valueOf(time_hvar);
             weatherJsonObject.put(time_hKey, time_hValue);
 
             String successvarKey = "success";
@@ -107,15 +110,37 @@ public class JSON_Reader {
 
         } catch (FileNotFoundException fe) {
 
-            //TODO: make this return weatherJsonObject with no values...
-            // TODO: ...but success=false message="Something Went Wrong" or something(?)
+            jsonObject = new JSONObject();
+            successvar = false;
+            messagevar = "Weather data file was not found on server.";
+
+            String successvarKey = "success";
+            Boolean successvarValue = successvar;
+            jsonObject.put(successvarKey, successvarValue);
+
+            String messagevarKey = "message";
+            String messagevarValue = messagevar;
+            jsonObject.put(messagevarKey, messagevarValue);
+
             fe.printStackTrace();
-            return weatherJsonObject;
+            return jsonObject;
+
         } catch (Exception e) {
 
-            //TODO: same as above here.
+            jsonObject = new JSONObject();
+            successvar = false;
+            messagevar = "Something went wrong.";
+
+            String successvarKey = "success";
+            Boolean successvarValue = successvar;
+            jsonObject.put(successvarKey, successvarValue);
+
+            String messagevarKey = "message";
+            String messagevarValue = messagevar;
+            jsonObject.put(messagevarKey, messagevarValue);
+
             e.printStackTrace();
-            return weatherJsonObject;
+            return jsonObject;
         }
 
         // return weatherJsonObject;
