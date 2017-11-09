@@ -26,9 +26,6 @@ public class WeatherController {
     public JSONObject getWeather(@RequestParam double userLat, @RequestParam double userLon) throws IOException, InvalidRangeException {
 
         // TODO: LATER: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
-
-        // TODO: return the right JSON object -now this SOMETIMES returns null WeatherObjects!!! ¯\_(ツ)_/¯
-        // TODO: OK, it was because of the numbers in object names on outputJSON file.
         
         JSONObject jsonObject;
 
