@@ -3,6 +3,7 @@ package com.haagahelia.cityzer.util;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import org.json.simple.JSONArray;
@@ -38,6 +39,10 @@ public class JSON_Reader {
         String messagevar = "Message from JSON_Reader.java!";
         double closestLatvar;
         double closestLonvar;
+        double latMax;
+        double latMin;
+        double lonMax;
+        double lonMin;
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -85,9 +90,6 @@ public class JSON_Reader {
                 }
             }
 
-            //String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
-            //System.out.println(strLocation);
-
 
             locationObject = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
 
@@ -95,9 +97,18 @@ public class JSON_Reader {
             closestLatvar = locationObject.getClosestLat();
             closestLonvar = locationObject.getClosestLon();
 
-            //CoordinatesHandler.finder(userLat, userLon, latsList, lonsList).getStrLocation();
-
             System.out.println(strLocation);
+
+            latMax = Collections.max(latsList);
+            latMin = Collections.min(latsList);
+            lonMax = Collections.max(lonsList);
+            lonMin = Collections.min(lonsList);
+
+            // TODO: make the math work!
+
+            if ((closestLatvar-10) < latMin ) {
+                inrangevar = false;
+            }
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
