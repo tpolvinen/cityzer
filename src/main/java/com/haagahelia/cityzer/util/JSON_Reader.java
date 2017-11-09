@@ -67,7 +67,9 @@ public class JSON_Reader {
             String strLocation = CoordinatesHandler.finder(userLat, userLon, latsList, lonsList);
             System.out.println(strLocation);
 
-            //strLocation = userLat + " " + userLon;
+            // TODO: take WeatherObject, cast it (?) to JSONObject, ->
+            // TODO: -> then put weatherJsonObject's data in to WeatherObject and finally return it.
+            
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
             System.out.println(weatherJsonObject);
 
