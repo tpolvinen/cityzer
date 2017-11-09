@@ -28,6 +28,7 @@ public class WeatherController {
         // TODO: LATER: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
 
         // TODO: return the right JSON object -now this SOMETIMES returns null WeatherObjects!!! ¯\_(ツ)_/¯
+        // TODO: OK, it was because of the numbers in object names on outputJSON file.
         
         JSONObject jsonObject;
 

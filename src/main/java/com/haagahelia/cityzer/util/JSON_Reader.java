@@ -68,10 +68,6 @@ public class JSON_Reader {
             System.out.println(strLocation);
 
             //strLocation = userLat + " " + userLon;
-
-            // TODO: find out why this SOMETIMES returns null weatherJsonObject
-            // TODO: ...like http://localhost:8080/api/getWeather?time=0&userLat=59.1&userLon=24.96599006652832 IS FINE!
-            // TODO: This returns null WeatherObject, but strLocation is ok: 60.37255 25.64626  http://localhost:8080/api/getWeather?time=0&userLat=60.39621860539766&userLon=25.662238597869873
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
             System.out.println(weatherJsonObject);
 
