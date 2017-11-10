@@ -31,21 +31,27 @@ public class CoordinatesHandler {
         lonMax = Collections.max(lonsArray);
         lonMin = Collections.min(lonsArray);
 
-        if (userLat < latMin || latMax < userLat || userLon < lonMin || lonMax < userLon) {
+        double latMargin = (latMax - latMin) / latsArray.size();
+        System.out.println(latMargin + "<- This is latMargin");
+        double lonMargin = (lonMax - lonMin) / lonsArray.size();
+        System.out.println(lonMargin + "<- This is lonMargin");
+
+
+        if (userLat + latMargin < latMin || latMax < userLat - latMargin || userLon + lonMargin < lonMin || lonMax < userLon - lonMargin) {
             message = "NOT IN RANGE! Too far ";
             inrange = false;
         }
 
-        if (userLat < latMin) {
+        if (userLat + latMargin < latMin) {
             message = message + "south";
         }
-        if (latMax < userLat) {
+        if (latMax < userLat - latMargin) {
             message = message + "north";
         }
-        if (userLon < lonMin) {
+        if (userLon + lonMargin < lonMin) {
             message = message + "west";
         }
-        if (lonMax < userLon) {
+        if (lonMax < userLon - lonMargin) {
             message = message + "east";
         }
         if (message != null && !message.isEmpty()) {
