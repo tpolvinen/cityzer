@@ -31,10 +31,8 @@ public class CoordinatesHandler {
         lonMax = Collections.max(lonsArray);
         lonMin = Collections.min(lonsArray);
 
-        double latMargin = (latMax - latMin) / latsArray.size();
-        System.out.println(latMargin + "<- This is latMargin");
-        double lonMargin = (lonMax - lonMin) / lonsArray.size();
-        System.out.println(lonMargin + "<- This is lonMargin");
+        double latMargin = ((latMax - latMin) / latsArray.size()) / 2;
+        double lonMargin = ((lonMax - lonMin) / lonsArray.size()) / 2;
 
 
         if (userLat + latMargin < latMin || latMax < userLat - latMargin || userLon + lonMargin < lonMin || lonMax < userLon - lonMargin) {
