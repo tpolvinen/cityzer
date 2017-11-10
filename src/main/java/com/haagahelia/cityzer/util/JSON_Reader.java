@@ -85,14 +85,12 @@ public class JSON_Reader {
             closestLatvar = locationObject.getClosestLat();
             closestLonvar = locationObject.getClosestLon();
             inrangevar = locationObject.isInrange();
+
             if (locationObject.getMessage() != null && !locationObject.getMessage().isEmpty()) {
                 messagevar = locationObject.getMessage();
             } else {
-                messagevar = "Message from JSON_Reader.java!";
+                messagevar = "Message from JSON_Reader.java!";  // TODO: move messages to application.properties
             }
-
-            System.out.println(strLocation);
-            System.out.println(messagevar);
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
@@ -103,14 +101,14 @@ public class JSON_Reader {
             String time_hKey = "time_h";
             writeJsonObject(time_hKey, time_hvar, weatherJsonObject);
 
-            String successvarKey = "success";
-            writeJsonObject(successvarKey, successvar, weatherJsonObject);
+            String successKey = "success";
+            writeJsonObject(successKey, successvar, weatherJsonObject);
 
-            String inrangevarKey = "inrange";
-            writeJsonObject(inrangevarKey, inrangevar, weatherJsonObject);
+            String inrangeKey = "inrange";
+            writeJsonObject(inrangeKey, inrangevar, weatherJsonObject);
 
-            String messagevarKey = "message";
-            writeJsonObject(messagevarKey, messagevar, weatherJsonObject);
+            String messageKey = "message";
+            writeJsonObject(messageKey, messagevar, weatherJsonObject);
 
             String closestLatKey = "closestLat";
             writeJsonObject(closestLatKey, closestLatvar, weatherJsonObject);
@@ -126,7 +124,7 @@ public class JSON_Reader {
 
             jsonObject = new JSONObject();
             successvar = false;
-            messagevar = "Weather data file was not found on server.";
+            messagevar = "Weather data file was not found on server."; // TODO: move messages to application.properties
 
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
@@ -141,7 +139,7 @@ public class JSON_Reader {
 
             jsonObject = new JSONObject();
             successvar = false;
-            messagevar = "Something went wrong.";
+            messagevar = "Something went wrong."; // TODO: move messages to application.properties
 
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
