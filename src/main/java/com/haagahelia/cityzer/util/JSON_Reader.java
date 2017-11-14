@@ -2,19 +2,24 @@ package com.haagahelia.cityzer.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.haagahelia.cityzer.domain.LocationObject;
+//import com.haagahelia.cityzer.domain.TimeObject;
 
 public class JSON_Reader {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
-    public static JSONObject weatherReader(double userLat, double userLon, String filepath)  {
+    public static JSONObject weatherReader(double userLat, double userLon, String filepath, Date date)  {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
@@ -35,7 +40,7 @@ public class JSON_Reader {
         String messagevar;
         double closestLatvar;
         double closestLonvar;
-
+        String hours_since;
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -43,6 +48,29 @@ public class JSON_Reader {
             jsonObject = (JSONObject) object;
 
             successvar = true;
+
+            hours_since = String.valueOf(jsonObject.get("hours since"));
+            System.out.println(hours_since);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date h = formatter.parse(hours_since);
+
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(date.getTime()-h.getTime());
+            System.out.println(seconds);
+
+            long fullHours = seconds / 3600;
+            System.out.println(fullHours);
+
+            long minutes = seconds / 60;
+            System.out.println("minutes " + minutes);
+
+            if (seconds - (fullHours * 3600) > 1800 ) {
+                fullHours ++;
+                System.out.println("Added 1 hour");
+            }
+
+            System.out.println("Closest full hour is " + fullHours);
+
 
             // TODO: refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
@@ -91,6 +119,8 @@ public class JSON_Reader {
             } else {
                 messagevar = "Message from JSON_Reader.java!";  // TODO: move messages to application.properties
             }
+
+
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
