@@ -2,6 +2,7 @@
 
 
 Digital Ocean IP: 128.199.61.201
+
 Domain: ctzr.me
 
 Paths:
