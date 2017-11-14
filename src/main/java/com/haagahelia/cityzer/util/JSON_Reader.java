@@ -3,6 +3,7 @@ package com.haagahelia.cityzer.util;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -37,11 +38,13 @@ public class JSON_Reader {
         double closestLonvar;
 
 
+
         try {
             Object object = parser.parse(new FileReader(path));
 
             jsonObject = (JSONObject) object;
-
+            String hours = (String) jsonObject.get("hours since");
+            System.out.println(hours);
             successvar = true;
 
             // TODO: refactor these to a single method:
