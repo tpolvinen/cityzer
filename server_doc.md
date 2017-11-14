@@ -2,20 +2,16 @@
 
 
 Digital Ocean IP: 128.199.61.201
+Domain: ctzr.me
 
 Paths:
 
-      home/joel/print/src/com/company/
-            Communicator.java
-            Main.java
-      Jos tekee muutoksia java-koodiin pitää aina suorittaa "javac *.java"-komento
-      Muista oikea path.
-
+      home/cityzer/databaseHandler/
+            databaseHandler.jar
+            
       var/www/html/ - location of data files.
 
-      nano <filename>.java - opens file in nano
-
-## home/joel/fetch-data.sh
+## home/cityzer/fetch-data.sh
 
       #!/bin/bash
       cp /var/www/html/output.txt /var/www/html/output-old.txt
@@ -30,6 +26,8 @@ Paths:
              echo "File retrieval failed!"
       fi
       echo "Size of file = $FILESIZE"
+      cd /home/cityzer/databaseHandler
+      java -jar databaseHandler.jar
 
       1. Kopioi olemassaolevan vanhan output.txt:n talteen.
       2. Ei oleellista.
@@ -37,4 +35,4 @@ Paths:
       4. Kopioi Main:in luoman .bin-tiedoston joel/print/src-kansioista rootin var/www/html-kansioon
       5. Käyttää ncdump-komentoa luodakseen ASCII-version .bin-tiedostosta
       6. Luo NetCDF-tiedoston (.nc) ASCII-tiedostosta
-      Muu ei ole oleellista.
+      
