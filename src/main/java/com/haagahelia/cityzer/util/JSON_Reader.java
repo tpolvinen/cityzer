@@ -74,11 +74,6 @@ public class JSON_Reader {
 
             timevar = (int) fullHours;
 
-            // TODO: Should we return only the latest part of weatherJsonObject? Like parts: fullhours -1, -2, -3, -4
-
-            // "air_temperature_4_3h": X, "air_temperature_4_1h": Y, <-- How to get these by the hour number?
-
-
             // TODO: perhaps refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
@@ -128,10 +123,7 @@ public class JSON_Reader {
             }
 
 
-
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
-
-
 
 
             String timeKey = "time";
@@ -156,34 +148,38 @@ public class JSON_Reader {
             writeJsonObject(closestLonKey, closestLonvar, latestWeatherJsonObject);
 
 
-            for (int i = 0; i < 4; i ++) {
-                if (i == 0) {
-                    if (timevar == 0) {
-                        String jsonKey = "air_temperature_4";
-                        Object var = weatherJsonObject.get("air_temperature_4");
-                        writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+            String[] weatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
+
+            
+            for (String s: weatherParameters) {
+
+                for (int i = 0; i < 4; i ++) {
+                    if (i == 0) {
+                        if (timevar == 0) {
+                            String jsonKey = s;
+                            Object var = weatherJsonObject.get(s);
+                            writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                        } else {
+                            int hour = 0;
+                            hour = timevar;
+                            if (hour > 9) hour = 9;
+                            String jsonKey = s;
+                            Object var = weatherJsonObject.get(s + "_" + hour + "h");
+                            writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                        }
+
                     } else {
-                        int hour = timevar;
+                        int hour = 0;
+                        hour = (timevar + i) - 1;
                         if (hour > 9) hour = 9;
-                        String jsonKey = "air_temperature_4";
-                        Object var = weatherJsonObject.get("air_temperature_4_" + hour + "h");
+                        String jsonKey = s + "_" + hour + "h";
+                        Object var = weatherJsonObject.get(s + "_" + hour + "h");
                         writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                     }
-
-                } else {
-                    int hour = timevar + i;
-                    if (hour > 9) hour = 9;
-                    String jsonKey = "air_temperature_4_" + hour + "h";
-                    Object var = weatherJsonObject.get("air_temperature_4_" + hour + "h");
-                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
+
             }
 
-
-
-
-
-            // return weatherJsonObject;
             return latestWeatherJsonObject;
 
         } catch (FileNotFoundException fe) {
