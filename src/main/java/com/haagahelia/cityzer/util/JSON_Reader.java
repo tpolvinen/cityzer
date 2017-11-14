@@ -2,7 +2,6 @@ package com.haagahelia.cityzer.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,7 +17,7 @@ public class JSON_Reader {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
-    public static JSONObject weatherReader(double userLat, double userLon, String filepath, Date date)  {
+    public static JSONObject weatherReader(double userLat, double userLon, String filepath, Date date) {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
@@ -41,7 +40,7 @@ public class JSON_Reader {
         double closestLonvar;
 
 
-
+        long test = 0;
         try {
             Object object = parser.parse(new FileReader(path));
 
@@ -52,7 +51,7 @@ public class JSON_Reader {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date h = formatter.parse(hours);
 
-            long test = TimeUnit.MILLISECONDS.toMinutes(date.getTime()-h.getTime());
+            test = TimeUnit.MILLISECONDS.toMinutes(date.getTime() - h.getTime());
             System.out.println(test);
 
             successvar = true;
@@ -62,7 +61,7 @@ public class JSON_Reader {
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
 
-            for(Object latsObject: jsonLats.toArray()){
+            for (Object latsObject : jsonLats.toArray()) {
                 JSONObject latsJsonStorage = (JSONObject) latsObject;
                 latsArraylist = (JSONArray) latsJsonStorage.get("storage");
                 System.out.println(latsArraylist);
@@ -70,7 +69,7 @@ public class JSON_Reader {
 
             JSONArray jsonLons = (JSONArray) jsonObject.get("lons");
 
-            for(Object lonsObject: jsonLons.toArray()){
+            for (Object lonsObject : jsonLons.toArray()) {
                 JSONObject lonsJsonStorage = (JSONObject) lonsObject;
                 lonsArraylist = (JSONArray) lonsJsonStorage.get("storage");
                 System.out.println(lonsArraylist);
@@ -79,7 +78,7 @@ public class JSON_Reader {
             ArrayList<Double> latsList = new ArrayList<Double>();
             if (latsArraylist != null) {
                 int len = latsArraylist.size();
-                for (int i=0;i<len;i++){
+                for (int i = 0; i < len; i++) {
                     latsList.add(Double.parseDouble(latsArraylist.get(i).toString()));
                 }
             }
@@ -87,7 +86,7 @@ public class JSON_Reader {
             ArrayList<Double> lonsList = new ArrayList<Double>();
             if (lonsArraylist != null) {
                 int len = lonsArraylist.size();
-                for (int i=0;i<len;i++){
+                for (int i = 0; i < len; i++) {
                     lonsList.add(Double.parseDouble(lonsArraylist.get(i).toString()));
                 }
             }
@@ -109,25 +108,61 @@ public class JSON_Reader {
 
 
             String timeKey = "time";
-            writeJsonObject(timeKey, timevar, weatherJsonObject);
+            writeJsonObject(timeKey, timevar, weatherJsonObject, test);
 
             String time_hKey = "time_h";
-            writeJsonObject(time_hKey, time_hvar, weatherJsonObject);
+            writeJsonObject(time_hKey, time_hvar, weatherJsonObject, test);
 
             String successKey = "success";
-            writeJsonObject(successKey, successvar, weatherJsonObject);
+            writeJsonObject(successKey, successvar, weatherJsonObject, test);
 
             String inrangeKey = "inrange";
-            writeJsonObject(inrangeKey, inrangevar, weatherJsonObject);
+            writeJsonObject(inrangeKey, inrangevar, weatherJsonObject, test);
 
             String messageKey = "message";
-            writeJsonObject(messageKey, messagevar, weatherJsonObject);
+            writeJsonObject(messageKey, messagevar, weatherJsonObject, test);
 
             String closestLatKey = "closestLat";
-            writeJsonObject(closestLatKey, closestLatvar, weatherJsonObject);
+            writeJsonObject(closestLatKey, closestLatvar, weatherJsonObject, test);
 
             String closestLonKey = "closestLon";
-            writeJsonObject(closestLonKey, closestLonvar, weatherJsonObject);
+            writeJsonObject(closestLonKey, closestLonvar, weatherJsonObject, test);
+
+
+            if (test <= 89) {
+                System.out.println(weatherJsonObject);
+            } else if (test >89 ||test <= 149){
+                weatherJsonObject.replace("air_temperature_4h", weatherJsonObject.get("air_temperature_4_1h"));
+                weatherJsonObject.replace("air_temperature_4_1h", weatherJsonObject.get("air_temperature_4_2h"));
+                weatherJsonObject.replace("air_temperature_4_2h", weatherJsonObject.get("air_temperature_4_3h"));
+                weatherJsonObject.replace("air_temperature_4_3h", weatherJsonObject.get("air_temperature_4_4h"));
+            }else if (test > 149 ||test <= 209){
+                weatherJsonObject.replace("air_temperature_4", weatherJsonObject.get("air_temperature_4_2h"));
+                weatherJsonObject.replace("air_temperature_4_1h", weatherJsonObject.get("air_temperature_4_3h"));
+                weatherJsonObject.replace("air_temperature_4_2h", weatherJsonObject.get("air_temperature_4_4h"));
+                weatherJsonObject.replace("air_temperature_4_3h", weatherJsonObject.get("air_temperature_4_5h"));
+            }else if (test > 209 || test<= 269){
+                weatherJsonObject.replace("air_temperature_4", weatherJsonObject.get("air_temperature_4_3h"));
+                weatherJsonObject.replace("air_temperature_4_1h", weatherJsonObject.get("air_temperature_4_4h"));
+                weatherJsonObject.replace("air_temperature_4_2h", weatherJsonObject.get("air_temperature_4_5h"));
+                weatherJsonObject.replace("air_temperature_4_3h", weatherJsonObject.get("air_temperature_4_6h"));
+            }else if (test > 269 || test <= 329){
+                weatherJsonObject.replace("air_temperature_4", weatherJsonObject.get("air_temperature_4_4h"));
+                weatherJsonObject.replace("air_temperature_4_1h", weatherJsonObject.get("air_temperature_4_5h"));
+                weatherJsonObject.replace("air_temperature_4_2h", weatherJsonObject.get("air_temperature_4_6h"));
+                weatherJsonObject.replace("air_temperature_4_3h", weatherJsonObject.get("air_temperature_4_7h"));
+            }else if (test > 329 || test <= 389){
+                weatherJsonObject.replace("air_temperature_4", weatherJsonObject.get("air_temperature_4_5h"));
+                weatherJsonObject.replace("air_temperature_4_1h", weatherJsonObject.get("air_temperature_4_6h"));
+                weatherJsonObject.replace("air_temperature_4_2h", weatherJsonObject.get("air_temperature_4_7h"));
+                weatherJsonObject.replace("air_temperature_4_3h", weatherJsonObject.get("air_temperature_4_8h"));
+            }else {
+                weatherJsonObject.replace("air_temperature_4", weatherJsonObject.get("air_temperature_4_6h"));
+                weatherJsonObject.replace("air_temperature_4_1h", weatherJsonObject.get("air_temperature_4_7h"));
+                weatherJsonObject.replace("air_temperature_4_2h", weatherJsonObject.get("air_temperature_4_8h"));
+                weatherJsonObject.replace("air_temperature_4_3h", weatherJsonObject.get("air_temperature_4_9h"));
+            }
+
 
 
 
@@ -140,10 +175,10 @@ public class JSON_Reader {
             messagevar = "Weather data file was not found on server."; // TODO: move messages to application.properties
 
             String successvarKey = "success";
-            writeJsonObject(successvarKey, successvar, jsonObject);
+            writeJsonObject(successvarKey, successvar, jsonObject, test);
 
             String messagevarKey = "message";
-            writeJsonObject(messagevarKey, messagevar, jsonObject);
+            writeJsonObject(messagevarKey, messagevar, jsonObject, test);
 
             fe.printStackTrace();
             return jsonObject;
@@ -155,10 +190,10 @@ public class JSON_Reader {
             messagevar = "Something went wrong."; // TODO: move messages to application.properties
 
             String successvarKey = "success";
-            writeJsonObject(successvarKey, successvar, jsonObject);
+            writeJsonObject(successvarKey, successvar, jsonObject, test);
 
             String messagevarKey = "message";
-            writeJsonObject(messagevarKey, messagevar, jsonObject);
+            writeJsonObject(messagevarKey, messagevar, jsonObject, test);
 
             e.printStackTrace();
             return jsonObject;
@@ -166,12 +201,15 @@ public class JSON_Reader {
 
     }
 
-    private static void writeJsonObject(String jsonKey, Object var, JSONObject weatherJsonObject) {
+
+    private static void writeJsonObject(String jsonKey, Object var, JSONObject weatherJsonObject, long test) {
+
 
         String key = jsonKey;
         Object value = var;
 
         weatherJsonObject.put(key, value);
+
 
     }
 
