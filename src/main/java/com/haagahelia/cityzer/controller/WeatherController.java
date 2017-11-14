@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import ucar.ma2.InvalidRangeException;
 
 import java.io.IOException;
+import java.util.Date;
 
 import com.haagahelia.cityzer.util.JSON_Reader;
 
@@ -28,8 +29,9 @@ public class WeatherController {
         // TODO: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
         
         JSONObject jsonObject;
+        Date date = new Date();
 
-        return JSON_Reader.weatherReader(userLat, userLon, filepath);
+        return JSON_Reader.weatherReader(userLat, userLon, filepath, date);
 
     }
 

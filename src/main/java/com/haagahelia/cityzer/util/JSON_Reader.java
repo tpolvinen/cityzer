@@ -2,8 +2,11 @@ package com.haagahelia.cityzer.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,7 +18,7 @@ public class JSON_Reader {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
-    public static JSONObject weatherReader(double userLat, double userLon, String filepath)  {
+    public static JSONObject weatherReader(double userLat, double userLon, String filepath, Date date)  {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
@@ -43,8 +46,15 @@ public class JSON_Reader {
             Object object = parser.parse(new FileReader(path));
 
             jsonObject = (JSONObject) object;
-            String hours = (String) jsonObject.get("hours since");
+            String hours = String.valueOf(jsonObject.get("hours since"));
             System.out.println(hours);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date h = formatter.parse(hours);
+
+            long test = TimeUnit.MILLISECONDS.toMinutes(date.getTime()-h.getTime());
+            System.out.println(test);
+
             successvar = true;
 
             // TODO: refactor these to a single method:
