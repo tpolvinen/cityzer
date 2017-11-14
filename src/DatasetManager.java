@@ -16,8 +16,8 @@ import ucar.nc2.NetcdfFile;
 
 public class DatasetManager {
 
-        final String locationMain = "C:\\Users\\a1500908\\Downloads\\_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-11-02T00_00_00Z.nc";
-        //final String locationMain = "/var/www/html/dataCDF.nc";
+        //final String locationMain = "C:\\Users\\a1500908\\Downloads\\_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-11-02T00_00_00Z.nc";
+        final String locationMain = "/var/www/html/dataCDF.nc";
         NetcdfFile ncfile = null;
         public DatasetManager() throws IOException, InvalidRangeException {
 
@@ -32,12 +32,21 @@ public class DatasetManager {
             Array latArr = roundArray(handlerMain.getLat(ncfile));
             Array lonArr = roundArray(handlerMain.getLon(ncfile));
 
-            JSONObject outer = new JSONObject();
-            outer.put("hours since", handlerMain.getHoursStart(ncfile));
+
             JSONArray latarrJSON = new JSONArray(Arrays.asList(roundArray(latArr)));
             JSONArray lonarrJSON = new JSONArray(Arrays.asList(roundArray(lonArr)));
-            outer.put("lats", latarrJSON);
-            outer.put("lons", lonarrJSON);
+
+            PrintWriter print = null;
+            //File file = new File("C:\\Users\\a1500908\\Downloads\\outputJSON5.json");
+            File file = new File("/var/www/html/api/outputJSON.json");
+            PrintWriter pw = new PrintWriter(file);
+            pw.close();
+
+            print = new PrintWriter(new FileWriter(file, true));
+            print.println("{");
+            print.println("\"hours since\": "+"\""+handlerMain.getHoursStart(ncfile)+"\",");
+            print.println("\"lats\": "+latarrJSON+", ");
+            print.println("\"lons\": "+lonarrJSON+", ");
 
             JSONObject inner = new JSONObject();
             for (int i=0; i < latArr.getSize(); i++){
@@ -99,25 +108,18 @@ public class DatasetManager {
                                 inner.put("northward_wind_24_9h",w.getNorthward_wind_24());
                             }
                     }
+                        if(i==latArr.getSize()-1 && k==lonArr.getSize()-1){
+                            print.println("\""+roundValue(latArr.getDouble(i))+" "+roundValue(lonArr.getDouble(k))+"\": "+inner);
+                        }else if (i<latArr.getSize() && k<lonArr.getSize()){
+                            print.println("\""+roundValue(latArr.getDouble(i))+" "+roundValue(lonArr.getDouble(k))+"\": "+inner+", ");
+                        }
 
-                    try {
 
-                        outer.put(roundValue(latArr.getDouble(i))+" "+roundValue(lonArr.getDouble(k)), inner);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
 
                 }
             }
-            PrintWriter print = null;
-            File file = new File("C:\\Users\\a1500908\\Downloads\\outputJSON4.json");
-            //File file = new File("/var/www/html/api/outputJSON.json");
-            PrintWriter pw = new PrintWriter(file);
-            pw.close();
-            print = new PrintWriter(new FileWriter(file, true));
-
-            print.println(outer);
+            print.println("}");
             print.close();
 
         }
@@ -125,7 +127,8 @@ public class DatasetManager {
 
         public Weather makeDataSet(Weather weather, int time, double lat, double lon) throws IOException, InvalidRangeException {
 
-            // TODO: find out if it is possible to get all four hours's data in to a single Weather
+            // TODO: find out if it is possible
+            // to get all four hours's data in to a single Weather
 
             NetCdfHandler handler = new NetCdfHandler();
 
