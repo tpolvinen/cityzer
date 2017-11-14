@@ -163,7 +163,7 @@ public class JSON_Reader {
                     Object var = weatherJsonObject.get("air_temperature_4");
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 } else {
-                    int hour = timevar + i;
+                    int hour = timevar + (i--);
                     if (hour > 9) hour = 9;
                     String jsonKey = "air_temperature_4_" + hour + "h";
                     Object var = weatherJsonObject.get("air_temperature_4_" + i + "h");
