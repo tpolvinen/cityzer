@@ -50,19 +50,19 @@ public class JSON_Reader {
             successvar = true;
 
             hours_since = String.valueOf(jsonObject.get("hours since"));
-            System.out.println(hours_since);
+            System.out.println("hours_since: " + hours_since);
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date h = formatter.parse(hours_since);
 
             long seconds = TimeUnit.MILLISECONDS.toSeconds(date.getTime()-h.getTime());
-            System.out.println(seconds);
+            System.out.println("Seconds since hours_since: " + seconds);
 
             long fullHours = seconds / 3600;
-            System.out.println(fullHours);
+            System.out.println("Full hours since hours_since: " + fullHours);
 
             long minutes = seconds / 60;
-            System.out.println("minutes " + minutes);
+            System.out.println("Minutes since hours_since: " + minutes);
 
             if (seconds - (fullHours * 3600) > 1800 ) {
                 fullHours ++;
@@ -70,6 +70,12 @@ public class JSON_Reader {
             }
 
             System.out.println("Closest full hour is " + fullHours);
+
+            if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
+
+            timevar = (int) fullHours;
+
+            // TODO: Should we return only the latest part of weatherJsonObject? Like parts: fullhours -1, -2, -3, -4
 
 
             // TODO: refactor these to a single method:
