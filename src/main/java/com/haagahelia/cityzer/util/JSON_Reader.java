@@ -155,31 +155,27 @@ public class JSON_Reader {
 
             for (String s: weatherParameters) {
 
-                for (int i = 0; i < 4; i ++) {
-                    if (i == 0) {
-                        if (timevar == 0) {
-                            String jsonKey = s;
-                            Object var = weatherJsonObject.get(s);
-                            writeJsonObject(jsonKey, var, latestWeatherJsonObject);
-                        } else {
-                            int hour = 0;
-                            hour = timevar;
-                            if (hour > 9) hour = 9;
-                            String jsonKey = s;
-                            Object var = weatherJsonObject.get(s + "_" + hour + "h");
-                            writeJsonObject(jsonKey, var, latestWeatherJsonObject);
-                        }
-
-                    } else {
-                        int hour = 0;
-                        hour = (timevar + i) - 1;
-                        if (hour > 9) hour = 9;
-                        String jsonKey = s + "_" + i + "h";
-                        Object var = weatherJsonObject.get(s + "_" + hour + "h");
-                        writeJsonObject(jsonKey, var, latestWeatherJsonObject);
-                    }
+                if (timevar == 0) {
+                    String jsonKey = s;
+                    Object var = weatherJsonObject.get(s);
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                } else {
+                    int hour = 0;
+                    hour = timevar;
+                    if (hour > 9) hour = 9;
+                    String jsonKey = s;
+                    Object var = weatherJsonObject.get(s + "_" + hour + "h");
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
 
+                for (int i = 1; i < 4; i ++) {
+                    int hour = 0;
+                    hour = timevar + i;
+                    if (hour > 9) hour = 9;
+                    String jsonKey = s + "_" + i + "h";
+                    Object var = weatherJsonObject.get(s + "_" + hour + "h");
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                }
             }
 
             return latestWeatherJsonObject;
