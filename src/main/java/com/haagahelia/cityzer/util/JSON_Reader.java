@@ -157,7 +157,7 @@ public class JSON_Reader {
 
             // fullHours = 9 max.
 
-            for (int i = 4; i > 0; i --) {
+            for (int i = 10; i > 0; i --) {
                 if (i == 1) {
                     String jsonKey = "air_temperature_4";
                     Object var = weatherJsonObject.get("air_temperature_4");
@@ -170,10 +170,6 @@ public class JSON_Reader {
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
             }
-
-            String jsonKey = "air_temperature_4";
-            Object var = weatherJsonObject.get("air_temperature_4");
-            writeJsonObject(jsonKey, var, latestWeatherJsonObject);
 
 
 
