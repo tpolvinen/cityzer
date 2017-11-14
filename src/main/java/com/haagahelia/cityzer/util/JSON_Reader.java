@@ -155,18 +155,26 @@ public class JSON_Reader {
             String closestLonKey = "closestLon";
             writeJsonObject(closestLonKey, closestLonvar, latestWeatherJsonObject);
 
-            // fullHours = 9 max.
 
-            for (int i = 10; i > 0; i --) {
-                if (i == 1) {
-                    String jsonKey = "air_temperature_4";
-                    Object var = weatherJsonObject.get("air_temperature_4");
-                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+            for (int i = 0; i < 4; i ++) {
+                if (i == 0) {
+                    if (timevar == 0) {
+                        String jsonKey = "air_temperature_4";
+                        Object var = weatherJsonObject.get("air_temperature_4");
+                        writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                    } else {
+                        int hour = timevar;
+                        if (hour > 9) hour = 9;
+                        String jsonKey = "air_temperature_4";
+                        Object var = weatherJsonObject.get("air_temperature_4_" + hour + "h");
+                        writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                    }
+
                 } else {
-                    int hour = timevar + (i--);
+                    int hour = timevar + i;
                     if (hour > 9) hour = 9;
                     String jsonKey = "air_temperature_4_" + hour + "h";
-                    Object var = weatherJsonObject.get("air_temperature_4_" + i + "h");
+                    Object var = weatherJsonObject.get("air_temperature_4_" + hour + "h");
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
             }
