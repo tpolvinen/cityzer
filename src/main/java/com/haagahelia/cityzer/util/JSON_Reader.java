@@ -72,6 +72,8 @@ public class JSON_Reader {
 
             if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
 
+            // TODO: What to return when forecast data file gets too old? As in > 6 hours?
+
             timevar = (int) fullHours;
 
             // TODO: perhaps refactor these to a single method:
@@ -150,7 +152,7 @@ public class JSON_Reader {
 
             String[] weatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
 
-            
+
             for (String s: weatherParameters) {
 
                 for (int i = 0; i < 4; i ++) {
@@ -172,7 +174,7 @@ public class JSON_Reader {
                         int hour = 0;
                         hour = (timevar + i) - 1;
                         if (hour > 9) hour = 9;
-                        String jsonKey = s + "_" + hour + "h";
+                        String jsonKey = s + "_" + i + "h";
                         Object var = weatherJsonObject.get(s + "_" + hour + "h");
                         writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                     }
