@@ -24,14 +24,13 @@ public class JSON_Reader {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
         JSONObject weatherJsonObject = null;
+        JSONObject latestWeatherJsonObject = new JSONObject();
         JSONArray latsArraylist = null;
         JSONArray lonsArraylist = null;
 
         String path = filepath;
 
         LocationObject locationObject;
-
-        // TODO: get these values from wherever
 
         int timevar = 0;
         int time_hvar = 0;
@@ -77,8 +76,10 @@ public class JSON_Reader {
 
             // TODO: Should we return only the latest part of weatherJsonObject? Like parts: fullhours -1, -2, -3, -4
 
+            // "air_temperature_4_3h": X, "air_temperature_4_1h": Y, <-- How to get these by the hour number?
 
-            // TODO: refactor these to a single method:
+
+            // TODO: perhaps refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
@@ -131,30 +132,55 @@ public class JSON_Reader {
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
 
+
+
             String timeKey = "time";
-            writeJsonObject(timeKey, timevar, weatherJsonObject);
+            writeJsonObject(timeKey, timevar, latestWeatherJsonObject);
 
             String time_hKey = "time_h";
-            writeJsonObject(time_hKey, time_hvar, weatherJsonObject);
+            writeJsonObject(time_hKey, time_hvar, latestWeatherJsonObject);
 
             String successKey = "success";
-            writeJsonObject(successKey, successvar, weatherJsonObject);
+            writeJsonObject(successKey, successvar, latestWeatherJsonObject);
 
             String inrangeKey = "inrange";
-            writeJsonObject(inrangeKey, inrangevar, weatherJsonObject);
+            writeJsonObject(inrangeKey, inrangevar, latestWeatherJsonObject);
 
             String messageKey = "message";
-            writeJsonObject(messageKey, messagevar, weatherJsonObject);
+            writeJsonObject(messageKey, messagevar, latestWeatherJsonObject);
 
             String closestLatKey = "closestLat";
-            writeJsonObject(closestLatKey, closestLatvar, weatherJsonObject);
+            writeJsonObject(closestLatKey, closestLatvar, latestWeatherJsonObject);
 
             String closestLonKey = "closestLon";
-            writeJsonObject(closestLonKey, closestLonvar, weatherJsonObject);
+            writeJsonObject(closestLonKey, closestLonvar, latestWeatherJsonObject);
+
+            // fullHours = 9 max.
+
+            for (int i = 4; i > 0; i --) {
+                if (i == 1) {
+                    String jsonKey = "air_temperature_4";
+                    Object var = weatherJsonObject.get("air_temperature_4");
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                } else {
+                    int hour = timevar + i;
+                    if (hour > 9) hour = 9;
+                    String jsonKey = "air_temperature_4_" + hour + "h";
+                    Object var = weatherJsonObject.get("air_temperature_4_" + i + "h");
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                }
+            }
+
+            String jsonKey = "air_temperature_4";
+            Object var = weatherJsonObject.get("air_temperature_4");
+            writeJsonObject(jsonKey, var, latestWeatherJsonObject);
 
 
 
-            return weatherJsonObject;
+
+
+            // return weatherJsonObject;
+            return latestWeatherJsonObject;
 
         } catch (FileNotFoundException fe) {
 
@@ -189,12 +215,12 @@ public class JSON_Reader {
 
     }
 
-    private static void writeJsonObject(String jsonKey, Object var, JSONObject weatherJsonObject) {
+    private static void writeJsonObject(String jsonKey, Object var, JSONObject latestWeatherJsonObject) {
 
         String key = jsonKey;
         Object value = var;
 
-        weatherJsonObject.put(key, value);
+        latestWeatherJsonObject.put(key, value);
 
     }
 
