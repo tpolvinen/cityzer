@@ -158,6 +158,9 @@ public class JSON_Reader {
                 if (timevar == 0) {
                     String jsonKey = s;
                     Object var = weatherJsonObject.get(s);
+                    if (var == null){
+                        var = "Information not available";
+                    }
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 } else {
                     int hour = 0;
@@ -165,6 +168,9 @@ public class JSON_Reader {
                     if (hour > 9) hour = 9;
                     String jsonKey = s;
                     Object var = weatherJsonObject.get(s + "_" + hour + "h");
+                    if (var == null){
+                        var = "Information not available";
+                    }
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
 
@@ -174,6 +180,9 @@ public class JSON_Reader {
                     if (hour > 9) hour = 9;
                     String jsonKey = s + "_" + i + "h";
                     Object var = weatherJsonObject.get(s + "_" + hour + "h");
+                    if (var == null){
+                        var = "Information not available";
+                    }
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
             }
