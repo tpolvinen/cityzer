@@ -186,8 +186,8 @@ public class JSON_Reader {
                     windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
 
                     double temperature = (double) latestWeatherJsonObject.get("air_temperature_4") - 273.15;
-                    temperature = -15;
-                    windspeed = 10;
+                    //temperature = -15;
+                    //windspeed = 10;
 
                     if (windspeed >= 7.2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
                         windchill = true;
@@ -216,8 +216,8 @@ public class JSON_Reader {
                     windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
 
                     double temperature = (double) latestWeatherJsonObject.get("air_temperature_4_" + i + "h") - 273.15;
-                    temperature = -15;
-                    windspeed = 10;
+                    //temperature = -15;
+                    //windspeed = 10;
 
                     if (windspeed >= 7.2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
                         windchill = true;
