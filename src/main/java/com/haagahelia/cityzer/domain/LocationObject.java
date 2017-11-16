@@ -1,8 +1,5 @@
 package com.haagahelia.cityzer.domain;
 
-//import org.springframework.stereotype.Component;
-
-//@Component
 public class LocationObject {
 
     private String strLocation;

@@ -2,31 +2,35 @@ package com.haagahelia.cityzer.util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.haagahelia.cityzer.domain.LocationObject;
+//import com.haagahelia.cityzer.domain.TimeObject;
 
 public class JSON_Reader {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
-    public static JSONObject weatherReader(double userLat, double userLon, String filepath)  {
+    public static JSONObject weatherReader(double userLat, double userLon, String filepath, Date date)  {
 
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = null;
         JSONObject weatherJsonObject = null;
+        JSONObject latestWeatherJsonObject = new JSONObject();
         JSONArray latsArraylist = null;
         JSONArray lonsArraylist = null;
 
         String path = filepath;
 
         LocationObject locationObject;
-
-        // TODO: get these values from wherever
 
         int timevar = 0;
         int time_hvar = 0;
@@ -35,7 +39,7 @@ public class JSON_Reader {
         String messagevar;
         double closestLatvar;
         double closestLonvar;
-
+        String hours_since;
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -44,7 +48,35 @@ public class JSON_Reader {
 
             successvar = true;
 
-            // TODO: refactor these to a single method:
+            hours_since = String.valueOf(jsonObject.get("hours since"));
+            System.out.println("hours_since: " + hours_since);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date h = formatter.parse(hours_since);
+
+            long seconds = TimeUnit.MILLISECONDS.toSeconds(date.getTime()-h.getTime());
+            System.out.println("Seconds since hours_since: " + seconds);
+
+            long fullHours = seconds / 3600;
+            System.out.println("Full hours since hours_since: " + fullHours);
+
+            long minutes = seconds / 60;
+            System.out.println("Minutes since hours_since: " + minutes);
+
+            if (seconds - (fullHours * 3600) > 1800 ) {
+                fullHours ++;
+                System.out.println("Added 1 hour");
+            }
+
+            System.out.println("Closest full hour is " + fullHours);
+
+            if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
+
+            // TODO: What to return when forecast data file gets too old? As in > 6 hours?
+
+            timevar = (int) fullHours; // TODO: fix rounding from long casted to int!
+
+            // TODO: perhaps refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
@@ -92,33 +124,64 @@ public class JSON_Reader {
                 messagevar = "Message from JSON_Reader.java!";  // TODO: move messages to application.properties
             }
 
+
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
 
             String timeKey = "time";
-            writeJsonObject(timeKey, timevar, weatherJsonObject);
+            writeJsonObject(timeKey, timevar, latestWeatherJsonObject);
 
             String time_hKey = "time_h";
-            writeJsonObject(time_hKey, time_hvar, weatherJsonObject);
+            writeJsonObject(time_hKey, time_hvar, latestWeatherJsonObject);
 
             String successKey = "success";
-            writeJsonObject(successKey, successvar, weatherJsonObject);
+            writeJsonObject(successKey, successvar, latestWeatherJsonObject);
 
             String inrangeKey = "inrange";
-            writeJsonObject(inrangeKey, inrangevar, weatherJsonObject);
+            writeJsonObject(inrangeKey, inrangevar, latestWeatherJsonObject);
 
             String messageKey = "message";
-            writeJsonObject(messageKey, messagevar, weatherJsonObject);
+            writeJsonObject(messageKey, messagevar, latestWeatherJsonObject);
 
             String closestLatKey = "closestLat";
-            writeJsonObject(closestLatKey, closestLatvar, weatherJsonObject);
+            writeJsonObject(closestLatKey, closestLatvar, latestWeatherJsonObject);
 
             String closestLonKey = "closestLon";
-            writeJsonObject(closestLonKey, closestLonvar, weatherJsonObject);
+            writeJsonObject(closestLonKey, closestLonvar, latestWeatherJsonObject);
 
 
+            String[] weatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
 
-            return weatherJsonObject;
+
+            for (String s: weatherParameters) {
+
+                if (timevar == 0) {
+                    String jsonKey = s;
+                    Object var = weatherJsonObject.get(s);
+
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                } else {
+                    int hour = 0;
+                    hour = timevar;
+                    if (hour > 9) hour = 9;
+                    String jsonKey = s;
+                    Object var = weatherJsonObject.get(s + "_" + hour + "h");
+
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                }
+
+                for (int i = 1; i < 4; i ++) {
+                    int hour = 0;
+                    hour = timevar + i;
+                    if (hour > 9) hour = 9;
+                    String jsonKey = s + "_" + i + "h";
+                    Object var = weatherJsonObject.get(s + "_" + hour + "h");
+                    
+                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
+                }
+            }
+
+            return latestWeatherJsonObject;
 
         } catch (FileNotFoundException fe) {
 
@@ -153,12 +216,12 @@ public class JSON_Reader {
 
     }
 
-    private static void writeJsonObject(String jsonKey, Object var, JSONObject weatherJsonObject) {
+    private static void writeJsonObject(String jsonKey, Object var, JSONObject latestWeatherJsonObject) {
 
         String key = jsonKey;
         Object value = var;
 
-        weatherJsonObject.put(key, value);
+        latestWeatherJsonObject.put(key, value);
 
     }
 
