@@ -74,7 +74,7 @@ public class JSON_Reader {
 
             // TODO: What to return when forecast data file gets too old? As in > 6 hours?
 
-            timevar = (int) fullHours;
+            timevar = (int) fullHours; // TODO: fix rounding from long casted to int!
 
             // TODO: perhaps refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
