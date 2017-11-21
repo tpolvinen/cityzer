@@ -184,18 +184,19 @@ public class JSON_Reader {
                     boolean windchill = false;
 
                     windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
+                    // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
 
                     double temperature = (double) latestWeatherJsonObject.get("air_temperature_4") - 273.15;
-                    //temperature = -15;
-                    //windspeed = 10;
+                    temperature = -10.1234567890;
+                    windspeed = 1.23456789;
 
                     if (windspeed >= 7.2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
                         windchill = true;
                         windchill_air_temp = 13.12 + (0.6215 * temperature) -
                                 (11.37 * Math.pow(windspeed, 0.16)) +
-                                (0.3965 * temperature * Math.pow(windspeed, 0.16));
+                                (0.3965 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
                         System.out.println("Valid windchill!");
-                        System.out.println("0 Windchill = " + windchill_air_temp); // + "... should be 251.92");
+                        System.out.println("0 Windchill = " + windchill_air_temp);
 
                         latestWeatherJsonObject.put("windchill", windchill);
                         latestWeatherJsonObject.put("windchill_air_temp", windchill_air_temp);
@@ -216,14 +217,14 @@ public class JSON_Reader {
                     windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
 
                     double temperature = (double) latestWeatherJsonObject.get("air_temperature_4_" + i + "h") - 273.15;
-                    //temperature = -15;
-                    //windspeed = 10;
+                    temperature = -15;
+                    windspeed = 10;
 
                     if (windspeed >= 7.2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
                         windchill = true;
                         windchill_air_temp = 13.12 + (0.6215 * temperature) -
                                 (11.37 * Math.pow(windspeed, 0.16)) +
-                                (0.3965 * temperature * Math.pow(windspeed, 0.16));
+                                (0.3965 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
                         System.out.println("Valid windchill!");
                         System.out.println(i + "Windchill = " + windchill_air_temp); // + "... should be 251.92");
 
@@ -239,6 +240,9 @@ public class JSON_Reader {
                 }
 
             }
+            // source: https://www.calcunation.com/calculator/wind-chill-celsius.php
+            // source: https://www.jkauppi.fi/pakkasen-purevuus/
+            // source: https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_02/Exercise_02_17/Exercise_02_17.java
 
 
             return latestWeatherJsonObject;
