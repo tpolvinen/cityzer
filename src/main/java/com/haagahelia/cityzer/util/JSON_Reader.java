@@ -193,8 +193,8 @@ public class JSON_Reader {
                         windchill_air_temp = 13.12 + (0.6215 * temperature) -
                                 (13.9563 * Math.pow(windspeed, 0.16)) +
                                 (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
-                        System.out.println("Valid windchill!");
-                        System.out.println("0 Windchill = " + windchill_air_temp);
+                        // System.out.println("Valid windchill!");
+                        // System.out.println("0 Windchill = " + windchill_air_temp);
 
                         latestWeatherJsonObject.put("windchill", windchill);
                         latestWeatherJsonObject.put("windchill_air_temp", windchill_air_temp);
@@ -203,8 +203,8 @@ public class JSON_Reader {
                         latestWeatherJsonObject.put("windchill_air_temp", "null");
                     }
 
-                    System.out.println("0 Temperature = " + temperature);
-                    System.out.println("0 Windspeed = " + windspeed);
+                    // System.out.println("0 Temperature = " + temperature);
+                    // System.out.println("0 Windspeed = " + windspeed);
 
                 } else {
                     double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23_" + i + "h");
@@ -220,8 +220,8 @@ public class JSON_Reader {
                         windchill_air_temp = 13.12 + (0.6215 * temperature) -
                                 (13.9563 * Math.pow(windspeed, 0.16)) +
                                 (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
-                        System.out.println("Valid windchill!");
-                        System.out.println(i + " Windchill = " + windchill_air_temp); // + "... should be 251.92");
+                        // System.out.println("Valid windchill!");
+                        // System.out.println(i + " Windchill = " + windchill_air_temp); // + "... should be 251.92");
 
                         latestWeatherJsonObject.put("windchill_" + i + "h", windchill);
                         latestWeatherJsonObject.put("windchill_air_temp_" + i + "h", windchill_air_temp);
@@ -230,8 +230,8 @@ public class JSON_Reader {
                         latestWeatherJsonObject.put("windchill_air_temp_" + i + "h", "null");
                     }
 
-                    System.out.println(i + " Temperature = " + temperature);
-                    System.out.println(i + " Windspeed = " + windspeed);
+                    // System.out.println(i + " Temperature = " + temperature);
+                    // System.out.println(i + " Windspeed = " + windspeed);
                 }
 
             }
