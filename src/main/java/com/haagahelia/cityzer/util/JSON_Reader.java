@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.lang.Math;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -41,6 +42,10 @@ public class JSON_Reader {
         double closestLonvar;
         String hours_since;
 
+        double windspeed;
+        double windchill_air_temp;
+
+
         try {
             Object object = parser.parse(new FileReader(path));
 
@@ -49,32 +54,25 @@ public class JSON_Reader {
             successvar = true;
 
             hours_since = String.valueOf(jsonObject.get("hours since"));
-            System.out.println("hours_since: " + hours_since);
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date h = formatter.parse(hours_since);
 
             long seconds = TimeUnit.MILLISECONDS.toSeconds(date.getTime()-h.getTime());
-            System.out.println("Seconds since hours_since: " + seconds);
 
             long fullHours = seconds / 3600;
-            System.out.println("Full hours since hours_since: " + fullHours);
 
             long minutes = seconds / 60;
-            System.out.println("Minutes since hours_since: " + minutes);
 
             if (seconds - (fullHours * 3600) > 1800 ) {
                 fullHours ++;
-                System.out.println("Added 1 hour");
             }
-
-            System.out.println("Closest full hour is " + fullHours);
 
             if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
 
-            // TODO: What to return when forecast data file gets too old? As in > 6 hours?
+            // TODO: What to return when forecast data file gets too old? As in > 6 hours? Return null?
 
-            timevar = (int) fullHours; // TODO: fix rounding from long casted to int!
+            timevar = (int) fullHours; // TODO: fix rounding from long casted to int?
 
             // TODO: perhaps refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
@@ -84,7 +82,6 @@ public class JSON_Reader {
             for(Object latsObject: jsonLats.toArray()){
                 JSONObject latsJsonStorage = (JSONObject) latsObject;
                 latsArraylist = (JSONArray) latsJsonStorage.get("storage");
-                System.out.println(latsArraylist);
             }
 
             JSONArray jsonLons = (JSONArray) jsonObject.get("lons");
@@ -92,7 +89,6 @@ public class JSON_Reader {
             for(Object lonsObject: jsonLons.toArray()){
                 JSONObject lonsJsonStorage = (JSONObject) lonsObject;
                 lonsArraylist = (JSONArray) lonsJsonStorage.get("storage");
-                System.out.println(lonsArraylist);
             }
 
             ArrayList<Double> latsList = new ArrayList<Double>();
@@ -158,7 +154,6 @@ public class JSON_Reader {
                 if (timevar == 0) {
                     String jsonKey = s;
                     Object var = weatherJsonObject.get(s);
-
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 } else {
                     int hour = 0;
@@ -166,7 +161,6 @@ public class JSON_Reader {
                     if (hour > 9) hour = 9;
                     String jsonKey = s;
                     Object var = weatherJsonObject.get(s + "_" + hour + "h");
-
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
 
@@ -176,10 +170,75 @@ public class JSON_Reader {
                     if (hour > 9) hour = 9;
                     String jsonKey = s + "_" + i + "h";
                     Object var = weatherJsonObject.get(s + "_" + hour + "h");
-                    
                     writeJsonObject(jsonKey, var, latestWeatherJsonObject);
                 }
             }
+
+
+            for (int i = 0; i < 4; i++) {
+
+
+                if (i == 0) {
+                    double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23");
+                    double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24");
+                    boolean windchill = false;
+
+                    windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
+                    // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
+
+                    double temperature = (double) latestWeatherJsonObject.get("air_temperature_4") - 273.15;
+
+                    if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
+                        windchill = true;
+                        windchill_air_temp = 13.12 + (0.6215 * temperature) -
+                                (13.9563 * Math.pow(windspeed, 0.16)) +
+                                (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
+                        System.out.println("Valid windchill!");
+                        System.out.println("0 Windchill = " + windchill_air_temp);
+
+                        latestWeatherJsonObject.put("windchill", windchill);
+                        latestWeatherJsonObject.put("windchill_air_temp", windchill_air_temp);
+                    } else {
+                        latestWeatherJsonObject.put("windchill", windchill);
+                        latestWeatherJsonObject.put("windchill_air_temp", "null");
+                    }
+
+                    System.out.println("0 Temperature = " + temperature);
+                    System.out.println("0 Windspeed = " + windspeed);
+
+                } else {
+                    double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23_" + i + "h");
+                    double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24_" + i + "h");
+                    boolean windchill = false;
+
+                    windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
+
+                    double temperature = (double) latestWeatherJsonObject.get("air_temperature_4_" + i + "h") - 273.15;
+
+                    if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
+                        windchill = true;
+                        windchill_air_temp = 13.12 + (0.6215 * temperature) -
+                                (13.9563 * Math.pow(windspeed, 0.16)) +
+                                (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
+                        System.out.println("Valid windchill!");
+                        System.out.println(i + " Windchill = " + windchill_air_temp); // + "... should be 251.92");
+
+                        latestWeatherJsonObject.put("windchill_" + i + "h", windchill);
+                        latestWeatherJsonObject.put("windchill_air_temp_" + i + "h", windchill_air_temp);
+                    } else {
+                        latestWeatherJsonObject.put("windchill_" + i + "h", windchill);
+                        latestWeatherJsonObject.put("windchill_air_temp_" + i + "h", "null");
+                    }
+
+                    System.out.println(i + " Temperature = " + temperature);
+                    System.out.println(i + " Windspeed = " + windspeed);
+                }
+
+            }
+            // source: https://www.calcunation.com/calculator/wind-chill-celsius.php
+            // source: https://www.jkauppi.fi/pakkasen-purevuus/
+            // source: https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_02/Exercise_02_17/Exercise_02_17.java
+
 
             return latestWeatherJsonObject;
 
