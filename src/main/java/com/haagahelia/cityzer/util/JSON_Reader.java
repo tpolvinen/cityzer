@@ -45,6 +45,8 @@ public class JSON_Reader {
         double windspeed;
         double windchill_air_temp;
 
+        boolean agevar;
+
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -68,9 +70,9 @@ public class JSON_Reader {
                 fullHours ++;
             }
 
-            if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
+            //if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
 
-            // TODO: What to return when forecast data file gets too old? As in > 6 hours? Return null?
+            // TODO: What to return when forecast data file gets too old? When data is over 9h, set boolean "overage" to "true" per hour
 
             timevar = (int) fullHours; // TODO: fix rounding from long casted to int?
 
@@ -177,7 +179,6 @@ public class JSON_Reader {
 
             for (int i = 0; i < 4; i++) {
 
-
                 if (i == 0) {
                     double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23");
                     double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24");
@@ -238,6 +239,23 @@ public class JSON_Reader {
             // source: https://www.calcunation.com/calculator/wind-chill-celsius.php
             // source: https://www.jkauppi.fi/pakkasen-purevuus/
             // source: https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_02/Exercise_02_17/Exercise_02_17.java
+
+            boolean overage = false;
+
+            // Writes boolean "overage" as "true" to json when data is too old - 10th hour data is the last valid.
+
+            for (int i = 0; i < 4; i++) {
+                int hourcount = timevar + i;
+                if (i == 0) {
+                    if (hourcount > 9) overage = true;
+                    latestWeatherJsonObject.put("overage", overage);
+                } else {
+                    if (hourcount > 9) overage = true;
+                    latestWeatherJsonObject.put("overage_" + i + "h", overage);
+
+                }
+
+            }
 
 
             return latestWeatherJsonObject;
