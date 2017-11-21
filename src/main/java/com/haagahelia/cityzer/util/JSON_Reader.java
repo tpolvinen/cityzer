@@ -45,8 +45,6 @@ public class JSON_Reader {
         double windspeed;
         double windchill_air_temp;
 
-        boolean agevar;
-
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -252,11 +250,8 @@ public class JSON_Reader {
                 } else {
                     if (hourcount > 9) overage = true;
                     latestWeatherJsonObject.put("overage_" + i + "h", overage);
-
                 }
-
             }
-
 
             return latestWeatherJsonObject;
 
