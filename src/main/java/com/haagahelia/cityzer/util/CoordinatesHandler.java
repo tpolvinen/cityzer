@@ -34,6 +34,8 @@ public class CoordinatesHandler {
         double latMargin = ((latMax - latMin) / latsArray.size()) / 2;
         double lonMargin = ((lonMax - lonMin) / lonsArray.size()) / 2;
 
+        System.out.println("CoordinatesHandler method finder starts");
+
 
         if (userLat + latMargin < latMin || latMax < userLat - latMargin || userLon + lonMargin < lonMin || lonMax < userLon - lonMargin) {
             message = "NOT IN RANGE! Too far ";

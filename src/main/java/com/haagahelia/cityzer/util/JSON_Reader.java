@@ -45,6 +45,8 @@ public class JSON_Reader {
         double windspeed;
         double windchill_air_temp;
 
+        System.out.println("JSON_Reader method weatherReader starts");
+
 
         try {
             Object object = parser.parse(new FileReader(path));
