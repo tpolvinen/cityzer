@@ -174,63 +174,39 @@ public class JSON_Reader {
                 }
             }
 
-
             for (int i = 0; i < 4; i++) {
+                
+                String ending="";
+                switch (i) {
+                    case 0:  ending = "";
+                        break;
+                    case 1:  ending = "_1h";
+                        break;
+                    case 2:  ending = "_2h";
+                        break;
+                    case 3:  ending = "_3h";
+                        break;
+                }
 
-                if (i == 0) {
-                    double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23");
-                    double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24");
-                    boolean windchill = false;
+                double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23" + ending);
+                double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24" + ending);
+                boolean windchill = false;
 
-                    windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
-                    // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
+                windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
+                // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
 
-                    double temperature = (double) latestWeatherJsonObject.get("air_temperature_4") - 273.15;
+                double temperature = (double) latestWeatherJsonObject.get("air_temperature_4" + ending) - 273.15;
 
-                    if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
-                        windchill = true;
-                        windchill_air_temp = 13.12 + (0.6215 * temperature) -
-                                (13.9563 * Math.pow(windspeed, 0.16)) +
-                                (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
-                        // System.out.println("Valid windchill!");
-                        // System.out.println("0 Windchill = " + windchill_air_temp);
-
-                        latestWeatherJsonObject.put("windchill", windchill);
-                        latestWeatherJsonObject.put("windchill_air_temp", windchill_air_temp);
-                    } else {
-                        latestWeatherJsonObject.put("windchill", windchill);
-                        latestWeatherJsonObject.put("windchill_air_temp", "null");
-                    }
-
-                    // System.out.println("0 Temperature = " + temperature);
-                    // System.out.println("0 Windspeed = " + windspeed);
-
+                if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
+                    windchill = true;
+                    windchill_air_temp = 13.12 + (0.6215 * temperature) -
+                            (13.9563 * Math.pow(windspeed, 0.16)) +
+                            (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
+                    latestWeatherJsonObject.put("windchill" + ending, windchill);
+                    latestWeatherJsonObject.put("windchill_air_temp" + ending, windchill_air_temp);
                 } else {
-                    double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23_" + i + "h");
-                    double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24_" + i + "h");
-                    boolean windchill = false;
-
-                    windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
-
-                    double temperature = (double) latestWeatherJsonObject.get("air_temperature_4_" + i + "h") - 273.15;
-
-                    if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
-                        windchill = true;
-                        windchill_air_temp = 13.12 + (0.6215 * temperature) -
-                                (13.9563 * Math.pow(windspeed, 0.16)) +
-                                (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
-                        // System.out.println("Valid windchill!");
-                        // System.out.println(i + " Windchill = " + windchill_air_temp); // + "... should be 251.92");
-
-                        latestWeatherJsonObject.put("windchill_" + i + "h", windchill);
-                        latestWeatherJsonObject.put("windchill_air_temp_" + i + "h", windchill_air_temp);
-                    } else {
-                        latestWeatherJsonObject.put("windchill_" + i + "h", windchill);
-                        latestWeatherJsonObject.put("windchill_air_temp_" + i + "h", "null");
-                    }
-
-                    // System.out.println(i + " Temperature = " + temperature);
-                    // System.out.println(i + " Windspeed = " + windspeed);
+                    latestWeatherJsonObject.put("windchill" + ending, windchill);
+                    latestWeatherJsonObject.put("windchill_air_temp" + ending, "null");
                 }
 
             }
