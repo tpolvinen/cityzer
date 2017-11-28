@@ -45,6 +45,8 @@ public class JSON_Reader {
         double windspeed;
         double windchill_air_temp;
 
+        System.out.println("JSON_Reader method weatherReader starts");
+
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -145,90 +147,15 @@ public class JSON_Reader {
             String closestLonKey = "closestLon";
             writeJsonObject(closestLonKey, closestLonvar, latestWeatherJsonObject);
 
+
             setHourlyWeatherParameters(timevar, weatherJsonObject, latestWeatherJsonObject);
 
-            /*String[] weatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
+
+            computeWindchill(latestWeatherJsonObject);
 
 
-            for (String s: weatherParameters) {
-
-                if (timevar == 0) {
-                    String jsonKey = s;
-                    Object var = weatherJsonObject.get(s);
-                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
-                } else {
-                    int hour = 0;
-                    hour = timevar;
-                    if (hour > 9) hour = 9;
-                    String jsonKey = s;
-                    Object var = weatherJsonObject.get(s + "_" + hour + "h");
-                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
-                }
-
-                for (int i = 1; i < 4; i ++) {
-                    int hour = 0;
-                    hour = timevar + i;
-                    if (hour > 9) hour = 9;
-                    String jsonKey = s + "_" + i + "h";
-                    Object var = weatherJsonObject.get(s + "_" + hour + "h");
-                    writeJsonObject(jsonKey, var, latestWeatherJsonObject);
-                }
-            }*/
-
-            for (int i = 0; i < 4; i++) {
-
-                String ending="";
-                switch (i) {
-                    case 0:  ending = "";
-                        break;
-                    case 1:  ending = "_1h";
-                        break;
-                    case 2:  ending = "_2h";
-                        break;
-                    case 3:  ending = "_3h";
-                        break;
-                }
-
-                double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23" + ending);
-                double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24" + ending);
-                boolean windchill = false;
-
-                windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
-                // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
-
-                double temperature = (double) latestWeatherJsonObject.get("air_temperature_4" + ending) - 273.15;
-
-                if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
-                    windchill = true;
-                    windchill_air_temp = 13.12 + (0.6215 * temperature) -
-                            (13.9563 * Math.pow(windspeed, 0.16)) +
-                            (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
-                    latestWeatherJsonObject.put("windchill" + ending, windchill);
-                    latestWeatherJsonObject.put("windchill_air_temp" + ending, windchill_air_temp);
-                } else {
-                    latestWeatherJsonObject.put("windchill" + ending, windchill);
-                    latestWeatherJsonObject.put("windchill_air_temp" + ending, "null");
-                }
-
-            }
-            // source: https://www.calcunation.com/calculator/wind-chill-celsius.php
-            // source: https://www.jkauppi.fi/pakkasen-purevuus/
-            // source: https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_02/Exercise_02_17/Exercise_02_17.java
-
-            boolean overage = false;
-
-            // Writes boolean "overage" as "true" to json when data is too old - 10th hour data is the last valid.
-
-            for (int i = 0; i < 4; i++) {
-                int hourcount = timevar + i;
-                if (i == 0) {
-                    if (hourcount > 9) overage = true;
-                    latestWeatherJsonObject.put("overage", overage);
-                } else {
-                    if (hourcount > 9) overage = true;
-                    latestWeatherJsonObject.put("overage_" + i + "h", overage);
-                }
-            }
+            setOverage(timevar, latestWeatherJsonObject);
+            
 
             return latestWeatherJsonObject;
 
@@ -304,6 +231,71 @@ public class JSON_Reader {
 
         }
 
+    }
+
+    private static void computeWindchill(JSONObject latestWeatherJsonObject) {
+
+        double windspeed;
+        double windchill_air_temp;
+
+        for (int i = 0; i < 4; i++) {
+
+            String ending="";
+            switch (i) {
+                case 0:  ending = "";
+                    break;
+                case 1:  ending = "_1h";
+                    break;
+                case 2:  ending = "_2h";
+                    break;
+                case 3:  ending = "_3h";
+                    break;
+            }
+
+            double eastward_wind = (double) latestWeatherJsonObject.get("eastward_wind_23" + ending);
+            double northward_wind = (double) latestWeatherJsonObject.get("northward_wind_24" + ending);
+            boolean windchill = false;
+
+            windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
+            // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
+
+            double temperature = (double) latestWeatherJsonObject.get("air_temperature_4" + ending) - 273.15;
+
+            if (windspeed >= 2 && windspeed <= 32 && temperature >= -50 && temperature <= 10) {
+                windchill = true;
+                windchill_air_temp = 13.12 + (0.6215 * temperature) -
+                        (13.9563 * Math.pow(windspeed, 0.16)) +
+                        (0.4867 * temperature * Math.pow(windspeed, 0.16)) + 273.15;
+                latestWeatherJsonObject.put("windchill" + ending, windchill);
+                latestWeatherJsonObject.put("windchill_air_temp" + ending, windchill_air_temp);
+            } else {
+                latestWeatherJsonObject.put("windchill" + ending, windchill);
+                latestWeatherJsonObject.put("windchill_air_temp" + ending, "null");
+            }
+
+        }
+        // source: https://www.calcunation.com/calculator/wind-chill-celsius.php
+        // source: https://www.jkauppi.fi/pakkasen-purevuus/
+        // source: https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_02/Exercise_02_17/Exercise_02_17.java
+
+    }
+
+    private static void setOverage(int timevar, JSONObject latestWeatherJsonObject) {
+
+        boolean overage = false;
+
+        // Writes boolean "overage" as "true" to json when data is too old - 10th hour data is the last valid.
+
+        for (int i = 0; i < 4; i++) {
+            int hourcount = timevar + i;
+            if (i == 0) {
+                if (hourcount > 9) overage = true;
+                latestWeatherJsonObject.put("overage", overage);
+            } else {
+                if (hourcount > 9) overage = true;
+                latestWeatherJsonObject.put("overage_" + i + "h", overage);
+            }
+        }
     }
 
 }
