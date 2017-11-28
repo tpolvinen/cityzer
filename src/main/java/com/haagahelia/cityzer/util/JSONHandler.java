@@ -1,11 +1,10 @@
 package com.haagahelia.cityzer.util;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.text.DateFormat;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Date;
 import java.lang.Math;
 
@@ -44,6 +43,13 @@ public class JSONHandler {
 
         System.out.println("JSONHandler method weatherReader starts");
 
+        Properties properties = new Properties();
+
+        try {
+            properties.load(new FileInputStream("application.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -114,7 +120,7 @@ public class JSONHandler {
             if (locationObject.getMessage() != null && !locationObject.getMessage().isEmpty()) {
                 messagevar = locationObject.getMessage();
             } else {
-                messagevar = "Message from JSONHandler.java!";  // TODO: move messages to application.properties
+                messagevar = properties.getProperty("jsonHandler.message");
             }
 
 
@@ -158,8 +164,8 @@ public class JSONHandler {
 
             jsonObject = new JSONObject();
             successvar = false;
-            messagevar = "Weather data file was not found on server."; // TODO: move messages to application.properties
-
+            messagevar = properties.getProperty("fileNotFound.message");
+            // messagevar = "Weather data file was not found on server.";
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
 
@@ -173,8 +179,8 @@ public class JSONHandler {
 
             jsonObject = new JSONObject();
             successvar = false;
-            messagevar = "Something went wrong."; // TODO: move messages to application.properties
-
+            messagevar = properties.getProperty("generalError.message");
+            // messagevar = "Something went wrong.";
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
 
@@ -198,7 +204,17 @@ public class JSONHandler {
 
     private static void setHourlyWeatherParameters(int timevar, JSONObject weatherJsonObject, JSONObject latestWeatherJsonObject) {
 
-        String[] hourlyWeatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
+        // String[] hourlyWeatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
+
+        Properties properties = new Properties();
+
+        try {
+            properties.load(new FileInputStream("application.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String[] hourlyWeatherParameters = properties.getProperty("hourlyWeatherParameters.array").split(",");;
 
         for (String s: hourlyWeatherParameters) {
 
