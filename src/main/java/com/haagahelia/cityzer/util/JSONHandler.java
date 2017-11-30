@@ -32,6 +32,7 @@ public class JSONHandler {
 
         LocationObject locationObject;
 
+        String hoursSincevar;
         int timevar = 0;
         int time_hvar = 0;
         boolean successvar;
@@ -59,6 +60,7 @@ public class JSONHandler {
             successvar = true;
 
             hours_since = String.valueOf(jsonObject.get("hours since"));
+            hoursSincevar = hours_since;
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date h = formatter.parse(hours_since);
@@ -77,7 +79,6 @@ public class JSONHandler {
 
             timevar = (int) fullHours; // TODO: fix rounding from long casted to int?
 
-            // TODO: perhaps refactor these to a single method:
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
@@ -126,6 +127,8 @@ public class JSONHandler {
 
             weatherJsonObject = (JSONObject) jsonObject.get(strLocation);
 
+            String hoursSinceKey = "hours since";
+            writeJsonObject(hoursSinceKey, hoursSincevar, latestWeatherJsonObject);
 
             String timeKey = "time";
             writeJsonObject(timeKey, timevar, latestWeatherJsonObject);

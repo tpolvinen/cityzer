@@ -2,10 +2,12 @@ package com.haagahelia.cityzer.domain;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class WeatherObject {
-    // This class is the same as WeatherCollection, but with
-    // added int time, int time_h, boolean success, boolean inrange, String message
+
+    private String hoursSince;
 
     private int time;
     private int time_h;
@@ -65,6 +67,14 @@ public class WeatherObject {
     private double northward_wind_24_8h;
     private double northward_wind_24_9h;
 
+
+    public String getHoursSince() {
+        return hoursSince;
+    }
+
+    public void setHoursSince(String hoursSince) {
+        this.hoursSince = hoursSince;
+    }
 
     public int getTime() {
         return time;
@@ -526,7 +536,8 @@ public class WeatherObject {
     @Override
     public String toString() {
         return "WeatherObject{" +
-                "time=" + time +
+                "hoursSince=" + hoursSince +
+                ", time=" + time +
                 ", time_h=" + time_h +
                 ", success=" + success +
                 ", inrange=" + inrange +
