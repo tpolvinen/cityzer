@@ -65,10 +65,6 @@ public class JSONHandler {
                 fullHours ++;
             }
 
-            //if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
-
-            // TODO: What to return when forecast data file gets too old? When data is over 9h, set boolean "overage" to "true" per hour
-
             timevar = (int) fullHours; // TODO: fix rounding from long casted to int?
 
             // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
