@@ -45,15 +45,6 @@ public class JSON_Reader {
         double windspeed;
         double windchill_air_temp;
 
-        System.out.println("JSON_Reader method weatherReader starts");
-
-        Properties properties = new Properties();
-
-        try {
-            properties.load(new FileInputStream("application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         try {
             Object object = parser.parse(new FileReader(path));
@@ -173,8 +164,8 @@ public class JSON_Reader {
 
             jsonObject = new JSONObject();
             successvar = false;
-            messagevar = properties.getProperty("fileNotFound.message");
-            // messagevar = "Weather data file was not found on server.";
+            // messagevar = properties.getProperty("fileNotFound.message");
+            messagevar = "Weather data file was not found on server.";
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
 
@@ -188,8 +179,8 @@ public class JSON_Reader {
 
             jsonObject = new JSONObject();
             successvar = false;
-            messagevar = properties.getProperty("generalError.message");
-            // messagevar = "Something went wrong.";
+            // messagevar = properties.getProperty("generalError.message");
+            messagevar = "Something went wrong.";
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
 
