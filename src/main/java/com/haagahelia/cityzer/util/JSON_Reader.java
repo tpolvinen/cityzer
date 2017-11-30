@@ -42,10 +42,6 @@ public class JSON_Reader {
         double closestLonvar;
         String hours_since;
 
-        double windspeed;
-        double windchill_air_temp;
-
-
         try {
             Object object = parser.parse(new FileReader(path));
 
@@ -204,9 +200,9 @@ public class JSON_Reader {
 
     private static void setHourlyWeatherParameters(int timevar, JSONObject weatherJsonObject, JSONObject latestWeatherJsonObject) {
 
-        // String[] hourlyWeatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
+        String[] hourlyWeatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
 
-        Properties properties = new Properties();
+        /*Properties properties = new Properties();
 
         try {
             properties.load(new FileInputStream("application.properties"));
@@ -215,7 +211,7 @@ public class JSON_Reader {
         }
 
         String[] hourlyWeatherParameters = properties.getProperty("hourlyWeatherParameters.array").split(",");;
-
+*/
         for (String s: hourlyWeatherParameters) {
 
             if (timevar == 0) {
