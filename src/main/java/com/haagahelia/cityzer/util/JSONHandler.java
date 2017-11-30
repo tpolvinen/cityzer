@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 import com.haagahelia.cityzer.domain.LocationObject;
 //import com.haagahelia.cityzer.domain.TimeObject;
 
-public class JSON_Reader {
+public class JSONHandler {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
@@ -114,7 +114,7 @@ public class JSON_Reader {
                 messagevar = locationObject.getMessage();
             } else {
 
-                messagevar = "Message from JSON_Reader.java!";  // TODO: move messages to application.properties
+                messagevar = "Message from JSONHandler.java!";  // TODO: move messages to application.properties
             }
 
 
