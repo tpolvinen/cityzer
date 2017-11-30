@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 import com.haagahelia.cityzer.domain.LocationObject;
 //import com.haagahelia.cityzer.domain.TimeObject;
 
-public class JSONHandler {
+public class JSON_Reader {
 
     // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
@@ -42,7 +42,10 @@ public class JSONHandler {
         double closestLonvar;
         String hours_since;
 
-        System.out.println("JSONHandler method weatherReader starts");
+        double windspeed;
+        double windchill_air_temp;
+
+        System.out.println("JSON_Reader method weatherReader starts");
 
         Properties properties = new Properties();
 
@@ -76,6 +79,8 @@ public class JSONHandler {
             }
 
             //if (fullHours > 9) fullHours = 9;  // outputJSON.json only has 10 hours of forecast data, beginning from 0.
+
+            // TODO: What to return when forecast data file gets too old? When data is over 9h, set boolean "overage" to "true" per hour
 
             timevar = (int) fullHours; // TODO: fix rounding from long casted to int?
 
@@ -121,7 +126,8 @@ public class JSONHandler {
             if (locationObject.getMessage() != null && !locationObject.getMessage().isEmpty()) {
                 messagevar = locationObject.getMessage();
             } else {
-                messagevar = properties.getProperty("jsonHandler.message");
+
+                messagevar = "Message from JSON_Reader.java!";  // TODO: move messages to application.properties
             }
 
 
@@ -159,7 +165,7 @@ public class JSONHandler {
 
 
             setOverage(timevar, latestWeatherJsonObject);
-
+            
 
             return latestWeatherJsonObject;
 

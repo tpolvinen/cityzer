@@ -16,7 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 
-import com.haagahelia.cityzer.util.JSONHandler;
+import com.haagahelia.cityzer.util.JSON_Reader;
 
 import org.json.simple.JSONObject;
 
@@ -57,7 +57,7 @@ public class WeatherController {
             return jsonObject;
         }
 
-        return JSONHandler.weatherReader(userLat, userLon, filepath, date);
+        return JSON_Reader.weatherReader(userLat, userLon, filepath, date);
 
     }
 
