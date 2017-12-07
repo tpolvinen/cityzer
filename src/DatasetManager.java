@@ -16,8 +16,8 @@ import ucar.nc2.NetcdfFile;
 
 public class DatasetManager {
 
-        final String locationMain = "C:\\Users\\a1500908\\Downloads\\_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-11-02T00_00_00Z.nc";
-        //final String locationMain = "/var/www/html/dataCDF.nc";
+        //final String locationMain = "C:\\Users\\a1500908\\Downloads\\_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-11-02T00_00_00Z.nc";
+        final String locationMain = "/var/www/html/dataCDF.nc";
         NetcdfFile ncfile = null;
         public DatasetManager() throws IOException, InvalidRangeException {
 
@@ -37,8 +37,8 @@ public class DatasetManager {
             JSONArray lonarrJSON = new JSONArray(Arrays.asList(roundArray(lonArr)));
 
             PrintWriter print = null;
-            File file = new File("C:\\Users\\a1500908\\Downloads\\outputJSON5b.json");
-            //File file = new File("/var/www/html/api/outputJSON.json");
+            //File file = new File("C:\\Users\\a1500908\\Downloads\\outputJSON5b.json");
+            File file = new File("/var/www/html/api/outputJSON.json");
             PrintWriter pw = new PrintWriter(file);
             pw.close();
 
