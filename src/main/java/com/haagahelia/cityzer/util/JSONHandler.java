@@ -216,7 +216,7 @@ public class JSONHandler {
                 writeJsonObject(jsonKey, var, latestWeatherJsonObject);
             } else {
                 int hour = 0;
-                hour = timevar;
+                hour = timevar - 6; // UGLY HACK: -6 because data is assumed to be at least 6 hours old
                 if (hour > 9) hour = 9;
                 String jsonKey = s;
                 Object var = weatherJsonObject.get(s + "_" + hour + "h");
@@ -225,7 +225,7 @@ public class JSONHandler {
 
             for (int i = 1; i < 4; i ++) {
                 int hour = 0;
-                hour = timevar + i;
+                hour = timevar + i - 6; // UGLY HACK: -6 because data is assumed to be at least 6 hours old
                 if (hour > 9) hour = 9;
                 String jsonKey = s + "_" + i + "h";
                 Object var = weatherJsonObject.get(s + "_" + hour + "h");
@@ -290,7 +290,7 @@ public class JSONHandler {
         // Writes boolean "overage" as "true" to json when data is too old - 10th hour data is the last valid.
 
         for (int i = 0; i < 4; i++) {
-            int hourcount = timevar + i;
+            int hourcount = timevar + i - 6; // UGLY HACK: -6 because data is assumed to be at least 6 hours old
             if (i == 0) {
                 if (hourcount > 9) overage = true;
                 latestWeatherJsonObject.put("overage", overage);
