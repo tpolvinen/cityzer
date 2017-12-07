@@ -16,8 +16,8 @@ import ucar.nc2.NetcdfFile;
 
 public class DatasetManager {
 
-        //final String locationMain = "C:\\Users\\a1500908\\Downloads\\_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-11-02T00_00_00Z.nc";
-        final String locationMain = "/var/www/html/dataCDF.nc";
+        final String locationMain = "C:\\Users\\a1500908\\Downloads\\_mnt_meru_data_cityzerdb_Storage_grid_data_HIRLAM_HIRLAM_2017-11-02T00_00_00Z.nc";
+        //final String locationMain = "/var/www/html/dataCDF.nc";
         NetcdfFile ncfile = null;
         public DatasetManager() throws IOException, InvalidRangeException {
 
@@ -37,8 +37,8 @@ public class DatasetManager {
             JSONArray lonarrJSON = new JSONArray(Arrays.asList(roundArray(lonArr)));
 
             PrintWriter print = null;
-            //File file = new File("C:\\Users\\a1500908\\Downloads\\outputJSON5.json");
-            File file = new File("/var/www/html/api/outputJSON.json");
+            File file = new File("C:\\Users\\a1500908\\Downloads\\outputJSON5b.json");
+            //File file = new File("/var/www/html/api/outputJSON.json");
             PrintWriter pw = new PrintWriter(file);
             pw.close();
 
@@ -47,61 +47,64 @@ public class DatasetManager {
             print.println("\"hours since\": "+"\""+handlerMain.getHoursStart(ncfile)+"\",");
             print.println("\"lats\": "+latarrJSON+", ");
             print.println("\"lons\": "+lonarrJSON+", ");
+            print.close();
 
             JSONObject inner = new JSONObject();
             for (int i=0; i < latArr.getSize(); i++){
                 for (int k=0; k<lonArr.getSize();k++){
+                    print = new PrintWriter(new FileWriter(file, true));
                     WeatherCollection wc = new WeatherCollection();
                     wc.setLat(roundValue(latArr.getDouble(i)));
                     wc.setLon(roundValue(lonArr.getDouble(k)));
-                    for(int h = 0 ; h<=9 ; h++){
+                    for(int h = 6 ; h<=15 ; h++){
+
                             Weather w = makeDataSet(new Weather(),h, latArr.getDouble(i), lonArr.getDouble(k));
-                            if(h==0){
+                            if(h-6==0){
                                 inner.put("air_temperature_4",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23",w.getEastward_wind_23());
                                 inner.put("northward_wind_24",w.getNorthward_wind_24());
-                            }else if(h==1){
+                            }else if(h-6==1){
                                 inner.put("air_temperature_4_1h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_1h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_1h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_1h",w.getNorthward_wind_24());
-                            }else if(h==2){
+                            }else if(h-6==2){
                                 inner.put("air_temperature_4_2h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_2h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_2h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_2h",w.getNorthward_wind_24());
-                            }else if(h==3){
+                            }else if(h-6==3){
                                 inner.put("air_temperature_4_3h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_3h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_3h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_3h",w.getNorthward_wind_24());
-                            }else if(h==4){
+                            }else if(h-6==4){
                                 inner.put("air_temperature_4_4h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_4h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_4h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_4h",w.getNorthward_wind_24());
-                            }else if(h==5){
+                            }else if(h-6==5){
                                 inner.put("air_temperature_4_5h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_5h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_5h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_5h",w.getNorthward_wind_24());
-                            }else if(h==6){
+                            }else if(h-6==6){
                                 inner.put("air_temperature_4_6h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_6h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_6h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_6h",w.getNorthward_wind_24());
-                            }else if(h==7){
+                            }else if(h-6==7){
                                 inner.put("air_temperature_4_7h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_7h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_7h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_7h",w.getNorthward_wind_24());
-                            }else if(h==8){
+                            }else if(h-6==8){
                                 inner.put("air_temperature_4_8h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_8h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_8h",w.getEastward_wind_23());
                                 inner.put("northward_wind_24_8h",w.getNorthward_wind_24());
-                            }else if(h==9){
+                            }else if(h-6==9){
                                 inner.put("air_temperature_4_9h",w.getAir_temperature_4());
                                 inner.put("precipitation_amount_353_9h", w.getPrecipitation_amount_353());
                                 inner.put("eastward_wind_23_9h",w.getEastward_wind_23());
@@ -110,8 +113,10 @@ public class DatasetManager {
                     }
                         if(i==latArr.getSize()-1 && k==lonArr.getSize()-1){
                             print.println("\""+roundValue(latArr.getDouble(i))+" "+roundValue(lonArr.getDouble(k))+"\": "+inner);
+                            print.close();
                         }else if (i<latArr.getSize() && k<lonArr.getSize()){
                             print.println("\""+roundValue(latArr.getDouble(i))+" "+roundValue(lonArr.getDouble(k))+"\": "+inner+", ");
+                            print.close();
                         }
 
 
@@ -119,6 +124,7 @@ public class DatasetManager {
 
                 }
             }
+            print = new PrintWriter(new FileWriter(file, true));
             print.println("}");
             print.close();
 
