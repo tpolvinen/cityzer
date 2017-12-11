@@ -32,15 +32,13 @@ public class WeatherController {
     @RequestMapping(value = "/api/getWeather", method = RequestMethod.GET, produces = "application/json")
     public JSONObject getWeather(@RequestParam double userLat, @RequestParam double userLon) throws IOException, InvalidRangeException {
 
-        // TODO: get server time + calculate the hour int based on the server time and the "hours since" in JSON file?
-
         JSONObject jsonObject;
 
         Date date = new Date();
 
         JSONParser parser = new JSONParser();
 
-        // 60.2015 - 60.2025  24.9335 - 24.9345
+        // This returns a mock-up json file in case the request comes with coordinates at lat 60.2015 - 60.2025 and lon 24.9335 - 24.9345
 
         if (userLat >= 60.2015 && userLat <= 60.2025 && userLon >= 24.9335 && userLon <= 24.9345) {
 

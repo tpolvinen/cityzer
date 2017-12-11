@@ -4,7 +4,6 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Date;
 import java.lang.Math;
 
@@ -13,11 +12,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.haagahelia.cityzer.domain.LocationObject;
-//import com.haagahelia.cityzer.domain.TimeObject;
 
 public class JSONHandler {
 
-    // source: http://www.javainterviewpoint.com/read-json-java-jsonobject-jsonarray/
 
     public static JSONObject weatherReader(double userLat, double userLon, String filepath, Date date)  {
 
@@ -65,9 +62,7 @@ public class JSONHandler {
                 fullHours ++;
             }
 
-            timevar = (int) fullHours; // TODO: fix rounding from long casted to int?
-
-            // source https://stackoverflow.com/questions/41016764/parsing-nested-json-array-in-java
+            timevar = (int) fullHours;
 
             JSONArray jsonLats = (JSONArray) jsonObject.get("lats");
 
@@ -156,7 +151,6 @@ public class JSONHandler {
 
             jsonObject = new JSONObject();
             successvar = false;
-            // messagevar = properties.getProperty("fileNotFound.message");
             messagevar = "Weather data file was not found on server.";
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
@@ -171,7 +165,6 @@ public class JSONHandler {
 
             jsonObject = new JSONObject();
             successvar = false;
-            // messagevar = properties.getProperty("generalError.message");
             messagevar = "Something went wrong.";
             String successvarKey = "success";
             writeJsonObject(successvarKey, successvar, jsonObject);
@@ -198,16 +191,6 @@ public class JSONHandler {
 
         String[] hourlyWeatherParameters = new String[]{"air_temperature_4", "eastward_wind_23", "precipitation_amount_353", "northward_wind_24"};
 
-        /*Properties properties = new Properties();
-
-        try {
-            properties.load(new FileInputStream("application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String[] hourlyWeatherParameters = properties.getProperty("hourlyWeatherParameters.array").split(",");;
-*/
         for (String s: hourlyWeatherParameters) {
 
             if (timevar == 0) {
@@ -216,7 +199,7 @@ public class JSONHandler {
                 writeJsonObject(jsonKey, var, latestWeatherJsonObject);
             } else {
                 int hour = 0;
-                hour = timevar - 6; // UGLY HACK: -6 because data is assumed to be at least 6 hours old
+                hour = timevar - 6; // -6 because data is assumed to be at least 6 hours old because forecast calculation takes at least 6 hours
                 if (hour > 9) hour = 9;
                 String jsonKey = s;
                 Object var = weatherJsonObject.get(s + "_" + hour + "h");
@@ -225,7 +208,7 @@ public class JSONHandler {
 
             for (int i = 1; i < 4; i ++) {
                 int hour = 0;
-                hour = timevar + i - 6; // UGLY HACK: -6 because data is assumed to be at least 6 hours old
+                hour = timevar + i - 6; // -6 because data is assumed to be at least 6 hours old because forecast calculation takes at least 6 hours
                 if (hour > 9) hour = 9;
                 String jsonKey = s + "_" + i + "h";
                 Object var = weatherJsonObject.get(s + "_" + hour + "h");
@@ -260,7 +243,6 @@ public class JSONHandler {
             boolean windchill = false;
 
             windspeed = Math.hypot(Math.abs(eastward_wind), Math.abs(northward_wind));
-            // source: https://www.tutorialspoint.com/java/lang/math_hypot.htm
 
             double temperature = (double) latestWeatherJsonObject.get("air_temperature_4" + ending) - 273.15;
 
@@ -277,9 +259,6 @@ public class JSONHandler {
             }
 
         }
-        // source: https://www.calcunation.com/calculator/wind-chill-celsius.php
-        // source: https://www.jkauppi.fi/pakkasen-purevuus/
-        // source: https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_02/Exercise_02_17/Exercise_02_17.java
 
     }
 
@@ -290,7 +269,7 @@ public class JSONHandler {
         // Writes boolean "overage" as "true" to json when data is too old - 10th hour data is the last valid.
 
         for (int i = 0; i < 4; i++) {
-            int hourcount = timevar + i - 6; // UGLY HACK: -6 because data is assumed to be at least 6 hours old
+            int hourcount = timevar + i - 6; // -6 because data is assumed to be at least 6 hours old because forecast calculation takes at least 6 hours
             if (i == 0) {
                 if (hourcount > 9) overage = true;
                 latestWeatherJsonObject.put("overage", overage);
