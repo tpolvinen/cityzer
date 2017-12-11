@@ -36,5 +36,6 @@
 
 * **Sample Call:**
 
-  ```    @RequestMapping(value = "/api/getWeather", method = RequestMethod.GET, produces = "application/json")
+  ```    
+  @RequestMapping(value = "/api/getWeather", method = RequestMethod.GET, produces = "application/json")
   ```
