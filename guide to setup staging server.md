@@ -1,4 +1,4 @@
-Setup staging server:
+** Setup staging server: **
 
 	Crontab-script:
 
@@ -17,7 +17,7 @@ Setup staging server:
 		http://posidev.com/blog/2009/06/04/set-ulimit-parameters-on-ubuntu/
 		
 
-Setup development environment:
+** Setup development environment: **
 
 	Install IntelliJ IDEA and GitBash:
 	
@@ -35,7 +35,7 @@ Setup development environment:
 	
 	If there are errors, click your imports and choose "add to classpath"
 
-Testing:
+** Testing: **
 
 	Run the shellscript manually.
 	Send request to endpoint
